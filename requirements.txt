@@ -1,0 +1,15 @@
+# --- MCP (Model Context Protocol) 核心 ---
+mcp>=0.1.0
+
+# --- OpenAI & Azure OpenAI SDK ---
+openai>=1.0.0
+
+# --- 環境變數管理 ---
+python-dotenv>=1.0.0
+
+# --- 資料庫連線 (PostgreSQL) ---
+psycopg2-binary>=2.9.0
+asyncpg>=0.29.0
+
+# --- 其他工具 ---
+# 如果未來要加上網路搜尋或其他功能，可以在此擴充
