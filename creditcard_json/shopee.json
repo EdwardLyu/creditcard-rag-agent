@@ -1,0 +1,219 @@
+{
+  "card_name": "國泰蝦皮購物聯名卡",
+  "issuer": "國泰世華銀行",
+
+  "credit_card_profile": {
+    "doc_type": "credit_card_profile",
+    "card_name": "國泰蝦皮購物聯名卡",
+    "issuer": "國泰世華銀行",
+    
+    "annual_fee": "正卡年費 NT$1,800",
+    "annual_fee_waiver": "首年免年費；次年起符合任一條件：年消費滿 NT$30,000 或累積 6 筆一般消費，或申辦電子帳單且任刷一筆消費。",
+    
+    "interest_and_fees": {
+      "revolving_rate": "6.75%~15%",
+      "cash_advance_fee": "預借現金金額 × 3% + NT$150 或 USD 5"
+    },
+
+    "income_requirement": "現職滿一年且年收入達 NT$200,000；申請人須為成年人；無提供附卡申辦。",
+    
+    "extra_requirements": [
+      "申請人須為蝦皮購物會員"
+    ],
+
+    "target_users": [
+      "蝦皮重度消費者",
+      "電商常購族",
+      "蝦幣使用頻繁者",
+      "使用蝦皮店到店者",
+      "雙11、雙12常購族",
+      "每月固定 5,000 消費族群",
+      "信用紀律良好者",
+      "年輕族群",
+      "網購多於實體生活者"
+    ],
+
+    "best_for": ["蝦皮購物高回饋"],
+    "source": "國泰蝦皮聯名卡.md"
+  },
+
+  "welcome_offer": {
+    "doc_type": "welcome_offer",
+    "card_name": "國泰蝦皮購物聯名卡",
+    "offer_name": "新卡友首刷禮 100 蝦幣 + 3 張免運券",
+    "valid_period": "2025/07/01-2025/12/31",
+    
+    "requirements": [
+      "首次申辦蝦皮聯名卡",
+      "核卡後 30 日內一般消費累積達 NT$888"
+    ],
+    "reward": {
+      "shopee_coins": 100,
+      "free_shipping_coupons": 3
+    },
+    "note": "以官方公告為準。",
+    "source": "國泰蝦皮聯名卡.md"
+  },
+
+  "benefit_scheme": [
+    {
+      "id": "shopee_benefit_1",
+      "card_name": "國泰蝦皮購物聯名卡",
+      "scheme_name": "蝦皮全站回饋",
+      "surface_desc": "蝦皮購物最高 4%（站外 0.5%）＋ 指定期間最高可達 10%。",
+      "valid_period": "至 2025/12/31",
+      "source": "國泰蝦皮聯名卡.md"
+    },
+    {
+      "id": "shopee_benefit_2",
+      "card_name": "國泰蝦皮購物聯名卡",
+      "scheme_name": "免運券回饋",
+      "surface_desc": "每月 5 筆或累積 NT$5,000 一般消費 → 次月享 1 張免運券",
+      "valid_period": "至 2025/12/31",
+      "source": "國泰蝦皮聯名卡.md"
+    },
+    {
+      "id": "shopee_benefit_3",
+      "card_name": "國泰蝦皮購物聯名卡",
+      "scheme_name": "海外消費免手續費",
+      "surface_desc": "海外一般消費免手續費 + 計入站外回饋",
+      "valid_period": "至 2025/12/31",
+      "source": "國泰蝦皮聯名卡.md"
+    },
+    {
+      "id": "shopee_benefit_4",
+      "card_name": "國泰蝦皮購物聯名卡",
+      "scheme_name": "12/12 全站折扣（限一天）",
+      "surface_desc": "蝦皮全站最高 7 折折扣，分級門檻＋限量",
+      "valid_period": "2025/12/12",
+      "source": "國泰蝦皮聯名卡.md"
+    }
+  ],
+
+  "benefit_rule": [
+    {
+      "scheme_id": "shopee_benefit_1",
+      "rule_type": "回饋分級",
+      "doc_type": "benefit_rule",
+      "card_name": "國泰蝦皮購物聯名卡",
+      "channel_group": "蝦皮購物",
+      "rules": {
+        "bank_provided": {
+          "base_reward": "0.5%",
+          "tiered": [
+            {"threshold": "NT$2,999 以下", "reward": "1%"},
+            {"threshold": "NT$3,000 以上", "reward": "2%"}
+          ]
+        },
+        "shopee_provided": {
+          "non_mall": "1%",
+          "mall": "2%"
+        },
+        "special_period_bonus": {
+          "super_brand_day": "6%",
+          "promo_days": ["99", "雙10", "雙11", "雙12"]
+        },
+        "max_combined_reward": "最高 10%"
+      },
+      "source": "國泰蝦皮聯名卡.md"
+    },
+
+    {
+      "scheme_id": "shopee_benefit_1",
+      "rule_type": "排除項目",
+      "doc_type": "benefit_rule",
+      "card_name": "國泰蝦皮購物聯名卡",
+      "exclude": [
+        "LINE Pay",
+        "街口支付",
+        "Shopee Ads",
+        "海外消費、跨境交易",
+        "非聯名卡付款之蝦皮交易",
+        "利息、年費、手續費",
+        "預借現金、分期、通信貸款、餘額代償",
+        "稅款、公務機關費用、學費、公用事業費",
+        "超商消費（7-11、全家）",
+        "全聯",
+        "小額支付（麥當勞、停車）",
+        "icash/eTag 儲值",
+        "未核准境外投資平台（eToro）",
+        "SOGO 貴賓廳",
+        "2025/5/1 起：博奕相關交易"
+      ],
+      "source": "國泰蝦皮聯名卡.md"
+    },
+
+    {
+      "scheme_id": "shopee_benefit_2",
+      "rule_type": "免運券條件",
+      "doc_type": "benefit_rule",
+      "card_name": "國泰蝦皮購物聯名卡",
+      "include": [
+        "當月一般消費滿 NT$5,000",
+        "當月一般消費累積 5 筆"
+      ],
+      "exclude": [
+        "利息、年費、手續費",
+        "預借現金、分期",
+        "代繳、保費、通信貸款、基金代扣",
+        "公用事業、稅款、公務機關",
+        "小額支付、路邊停車、便利商店",
+        "國壽相關繳費",
+        "2025/5/1 起：博奕交易"
+      ],
+      "reward": "次月 1 張蝦皮店到店免運券（上限 1 張）",
+      "source": "國泰蝦皮聯名卡.md"
+    },
+
+    {
+      "scheme_id": "shopee_benefit_3",
+      "rule_type": "海外免手續費",
+      "doc_type": "benefit_rule",
+      "card_name": "國泰蝦皮購物聯名卡",
+      "include": [
+        "海外一般消費免手續費",
+        "計入站外一般回饋 0.5%"
+      ],
+      "exclude": [
+        "退稅後退款不列入消費金額"
+      ],
+      "source": "國泰蝦皮聯名卡.md"
+    },
+
+    {
+      "scheme_id": "shopee_benefit_4",
+      "rule_type": "12/12 折扣規則",
+      "doc_type": "benefit_rule",
+      "card_name": "國泰蝦皮購物聯名卡",
+      "rules": {
+        "requirements": [
+          "限 2025/12/12 當天",
+          "使用蝦皮聯名卡付款",
+          "限全站（商城/非商城）",
+          "蝦幣可同時折抵"
+        ],
+        "tiered_discounts": [
+          {
+            "discount": "7折",
+            "threshold": "NT$1,000",
+            "max_discount": "NT$300",
+            "quota": 3000
+          },
+          {
+            "discount": "88折",
+            "threshold": "NT$2,000",
+            "max_discount": "NT$1,500",
+            "quota": 4000
+          },
+          {
+            "discount": "94折",
+            "threshold": "NT$2,000",
+            "max_discount": "NT$1,000",
+            "quota": 1000
+          }
+        ]
+      },
+      "source": "國泰蝦皮聯名卡.md"
+    }
+  ]
+}

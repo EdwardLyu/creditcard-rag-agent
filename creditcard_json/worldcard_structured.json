@@ -1,0 +1,462 @@
+{
+  "card_name": "國泰世華世界卡",
+  "issuer": "國泰世華銀行",
+
+  "credit_card_profile": {
+    "doc_type": "credit_card_profile",
+    "card_name": "國泰世華世界卡",
+    "issuer": "國泰世華銀行",
+
+    "annual_fee": {
+      "primary": "NT$20,000",
+      "supplementary": "附卡免年費"
+    },
+    "annual_fee_waiver": {
+      "first_year": "正卡人首次申辦世界卡且近三個月平均往來資產達 NT$3,000,000(含)以上，且於當月份專案名單內，每戶限回饋一次。",
+      "renewal": [
+        "正、附卡累計年消費達 NT$800,000(含)以上者，次年免年費。",
+        "正、附卡累計年消費達 NT$400,000(含)以上者，次年年費 5 折。"
+      ]
+    },
+
+    "eligibility": {
+      "age": "年滿 18 歲",
+      "income_requirement": "現職滿一年且年收入達 NT$2,000,000",
+      "supp_card_info": "附卡申請人需為正卡申請人之父母、兄弟姊妹、配偶、配偶之父母或年滿15歲之子女；附卡申請人為未成年人，須法定代理人共同簽名同意。"
+    },
+
+    "target_users": [
+      "年收入超過 200 萬的高收入族群",
+      "商務人士、差旅族：機場接送、貴賓室、旅平險需求高",
+      "旅遊玩家：重視旅行與住宿禮遇",
+      "Fine dining / 米其林 / 自助餐常客：餐飲 5 折、75 折常用得到",
+      "家庭族群：家庭聚餐、飯店住宿、旅遊需求多",
+      "高爾夫族：球場預約與優惠能直接回本",
+      "喜歡高品質生活者：願意用高年費換高等級服務"
+    ],
+
+    "positioning": "高端頂級卡，以四大面向（美饌饗宴、高爾夫運動、飯店住宿、旅遊交通）提供高品質生活與旅遊禮遇。",
+    "source": "國泰世界卡.md"
+  },
+
+  "welcome_offer": {
+    "doc_type": "welcome_offer",
+    "card_name": "國泰世華世界卡",
+    "offer_name": "首刷禮 5,000 點小樹點(信用卡)",
+    "valid_period": "2025/01/01-2025/12/31",
+    "conditions": [
+      "首次申辦世界卡正卡並繳交全額年費 NT$20,000。",
+      "核卡日後 60 天內，一般消費累積達 NT$150,000。"
+    ],
+    "reward": "5,000 點小樹點(信用卡)回饋",
+    "note": "活動期間與門檻以國泰世華官方公告為準。",
+    "source": "國泰世界卡.md"
+  },
+
+  "benefit_scheme": [
+    {
+      "id": "worldcard_dining_top",
+      "doc_type": "benefit_scheme",
+      "card_name": "國泰世華世界卡",
+      "scheme_name": "好處1：頂級美饌 2 人 5 折起優惠",
+      "surface_desc": "全台多家五星飯店餐廳享 2 人 5 折起與 75 折優惠，適用高單價 fine dining、自助餐與頂級餐廳。",
+      "usage_notes": [
+        "每卡每日限用一次。",
+        "需支付 10% 服務費，且以原價計算。",
+        "須事先電話預約並告知世界卡優惠。",
+        "節慶或連假可能不適用優惠，依各餐廳規定。",
+        "多為指定單點或套餐，無法與其他優惠併用。",
+        "實際規定以各家餐廳公告為準。"
+      ],
+      "source": "國泰世界卡.md"
+    },
+    {
+      "id": "worldcard_airport_transfer",
+      "doc_type": "benefit_scheme",
+      "card_name": "國泰世華世界卡",
+      "scheme_name": "好處2：機場接送",
+      "surface_desc": "符合財富管理鑽石 VIP 或世界卡年度一般消費門檻，可享指定區域免費國際線單趟機場接或送服務。",
+      "source": "國泰世界卡.md"
+    },
+    {
+      "id": "worldcard_le_orano",
+      "doc_type": "benefit_scheme",
+      "card_name": "國泰世華世界卡",
+      "scheme_name": "好處2：Le Oràno 奢華旅遊私人俱樂部",
+      "surface_desc": "世界卡卡友可免費獲得一年 Le Oràno Club 會籍（價值 USD 300），享全球頂級酒店與高端旅遊服務禮遇。",
+      "valid_period": "2025/01/01-2025/12/31",
+      "source": "國泰世界卡.md"
+    },
+    {
+      "id": "worldcard_lounges",
+      "doc_type": "benefit_scheme",
+      "card_name": "國泰世華世界卡",
+      "scheme_name": "好處3：全球機場貴賓室",
+      "surface_desc": "達指定新增消費門檻，可免費使用桃園、松山環亞機場貴賓室及全球約 1600 間龍騰卡機場貴賓室，每戶年度上限 8 次。",
+      "valid_period": "2025/01/01-2025/12/31",
+      "source": "國泰世界卡.md"
+    },
+    {
+      "id": "worldcard_funnow",
+      "doc_type": "benefit_scheme",
+      "card_name": "國泰世華世界卡",
+      "scheme_name": "好處4：FunNow 最高 5 折優惠",
+      "surface_desc": "透過「國泰世華世界卡 x FunNow 活動網頁」預訂指定商品，輸入優惠碼並以世界卡結帳，可享日本餐廳 5 折/85 折、露營 75 折等優惠。",
+      "valid_period": "即日起-2025/12/31",
+      "note": "本優惠限國泰世華世界卡持卡人本人使用，亞洲萬里通聯名世界卡不適用。",
+      "source": "國泰世界卡.md"
+    }
+  ],
+
+  "benefit_rule": [
+    {
+      "doc_type": "benefit_rule",
+      "scheme_id": "worldcard_dining_top",
+      "rule_type": "通用使用規則",
+      "card_name": "國泰世華世界卡",
+      "usage_limit": "每卡每日限使用一次頂級美饌優惠。",
+      "service_charge": "需支付 10% 服務費，以原價計算服務費。",
+      "reservation": "需事先電話預約並主動告知使用世界卡優惠。",
+      "blackout": "節慶或連假可能不適用，依各餐廳公告為準。",
+      "stacking": "多為指定單點或套餐，無法與其他優惠併用。",
+      "note": "詳細規定以各家餐廳為準。",
+      "source": "國泰世界卡.md"
+    },
+
+    {
+      "doc_type": "benefit_rule",
+      "scheme_id": "worldcard_dining_top",
+      "rule_type": "餐廳列表 - 2 人 5 折",
+      "card_name": "國泰世華世界卡",
+      "restaurants": [
+        {
+          "restaurant_name": "台北君悅酒店：彩日本料理",
+          "discount": "2 人 5 折",
+          "conditions": [
+            "1、3、4 人平假日午、晚餐享 85 折優惠",
+            "指定節日折扣變為 85 折"
+          ]
+        },
+        {
+          "restaurant_name": "台北遠東香格里拉：ibuki 日本料理",
+          "discount": "2 人 5 折",
+          "conditions": [
+            "1、3～20 人（含）85 折優惠",
+            "壽星生日當月用餐享精緻小點乙份"
+          ]
+        },
+        {
+          "restaurant_name": "台北遠東香格里拉：遠東 CAFE 自助餐廳",
+          "discount": "2 人 5 折",
+          "conditions": [
+            "1、3～20 人（含）85 折優惠",
+            "適用於平假日午餐、下午茶、晚餐"
+          ]
+        },
+        {
+          "restaurant_name": "台北萬豪酒店：Garden Kitchen",
+          "discount": "2 人 5 折",
+          "conditions": [
+            "4 人（含）以下同行用餐享 8 折優惠",
+            "適用於平假日午餐、晚餐"
+          ]
+        },
+        {
+          "restaurant_name": "新竹豐邑喜來登大飯店：盛宴自助餐廳",
+          "discount": "2 人 5 折",
+          "conditions": [
+            "1、3、4 人 8 折優惠",
+            "適用於平假日午餐、下午茶、晚餐"
+          ]
+        },
+        {
+          "restaurant_name": "新竹國賓大飯店：八方燴西餐廳",
+          "discount": "2 人 5 折",
+          "conditions": [
+            "平假日午、晚餐 1、3、4 人用餐享 7 折",
+            "適用於平假日午餐、晚餐"
+          ]
+        },
+        {
+          "restaurant_name": "台南遠東香格里拉：The Mezz 牛排館",
+          "discount": "2 人 5 折",
+          "conditions": [
+            "1、3～6 人（含）85 折優惠"
+          ]
+        },
+        {
+          "restaurant_name": "台南遠東香格里拉：醉月樓",
+          "discount": "2 人 5 折",
+          "conditions": [
+            "1、3～6 人（含）85 折優惠"
+          ]
+        },
+        {
+          "restaurant_name": "高雄中央公園英迪格酒店：Wok on the Park 全日餐廳",
+          "discount": "2 人 5 折",
+          "conditions": [
+            "1、3～12 人（含）享 75 折"
+          ]
+        },
+        {
+          "restaurant_name": "高雄萬豪酒店：豪享自助餐廳",
+          "discount": "2 人 5 折",
+          "conditions": [
+            "1、3、4 人 8 折優惠"
+          ]
+        }
+      ],
+      "source": "國泰世界卡.md"
+    },
+
+    {
+      "doc_type": "benefit_rule",
+      "scheme_id": "worldcard_dining_top",
+      "rule_type": "餐廳列表 - 75 折",
+      "card_name": "國泰世華世界卡",
+      "restaurants": [
+        {
+          "restaurant_name": "台北寒舍艾美酒店：探索廚房",
+          "discount": "75 折",
+          "conditions": [
+            "每次限 10 人（含）以下享優惠",
+            "適用於平假日午餐、下午茶、晚餐"
+          ]
+        },
+        {
+          "restaurant_name": "台北寒舍艾美酒店：寒舍食譜",
+          "discount": "75 折",
+          "conditions": [
+            "每次限 10 人（含）以下享優惠",
+            "適用於平假日午餐、晚餐"
+          ]
+        },
+        {
+          "restaurant_name": "台北寒舍艾美酒店：北緯二十五",
+          "discount": "75 折",
+          "conditions": [
+            "每次限 10 人（含）以下享優惠",
+            "適用於平假日全日營業時段"
+          ]
+        },
+        {
+          "restaurant_name": "台北美福大飯店：彩匯自助餐廳",
+          "discount": "75 折",
+          "conditions": [
+            "每次限 12 人（含）以下享優惠",
+            "不適用於早餐及下午茶"
+          ]
+        },
+        {
+          "restaurant_name": "台北美福大飯店：潮粵坊港潮餐廳",
+          "discount": "75 折",
+          "conditions": [
+            "每次限 12 人（含）以下享優惠"
+          ]
+        },
+        {
+          "restaurant_name": "台北美福大飯店：晴山日本料理",
+          "discount": "75 折",
+          "conditions": [
+            "每次限 12 人（含）以下享優惠"
+          ]
+        },
+        {
+          "restaurant_name": "台北美福大飯店：米香台菜餐廳",
+          "discount": "75 折",
+          "conditions": [
+            "每次限 12 人（含）以下享優惠"
+          ]
+        },
+        {
+          "restaurant_name": "台北美福大飯店：GMT 義大利餐廳",
+          "discount": "75 折",
+          "conditions": [
+            "每次限 12 人（含）以下享優惠"
+          ]
+        },
+        {
+          "restaurant_name": "台北國泰萬怡酒店：全日餐廳 MJ Kitchen",
+          "discount": "75 折",
+          "conditions": [
+            "每次限 8 人（含）以下享優惠",
+            "不適用於早餐"
+          ]
+        },
+        {
+          "restaurant_name": "台北國泰萬怡酒店：Drift Bar",
+          "discount": "75 折",
+          "conditions": [
+            "每次限 8 人（含）以下享優惠",
+            "適用於餐點及酒吧"
+          ]
+        },
+        {
+          "restaurant_name": "台北國泰萬怡酒店：The Lounge",
+          "discount": "75 折",
+          "conditions": [
+            "每次限 8 人（含）以下享優惠",
+            "適用於餐點及酒吧"
+          ]
+        },
+        {
+          "restaurant_name": "台中中山招待所",
+          "discount": "75 折",
+          "conditions": [
+            "每次限 8 人（含）以下享優惠",
+            "壽星生日當月用餐享伴手禮乙份"
+          ]
+        },
+        {
+          "restaurant_name": "高雄中央公園英迪格酒店：Pier No.1 高空酒吧",
+          "discount": "75 折",
+          "conditions": [
+            "每次限 12 人（含）以下享優惠",
+            "單點全品項 75 折（不含酒精性飲料）"
+          ]
+        },
+        {
+          "restaurant_name": "高雄中央公園英迪格酒店：Craft Café",
+          "discount": "75 折",
+          "conditions": [
+            "每次限 12 人（含）以下享優惠",
+            "單點全品項 75 折"
+          ]
+        },
+        {
+          "restaurant_name": "台北喜來登大飯店：十二廚",
+          "discount": "75 折",
+          "conditions": [
+            "每次限 10 人（含）以下享優惠",
+            "平假日午餐、下午茶、晚餐 75 折"
+          ]
+        },
+        {
+          "restaurant_name": "台北喜來登大飯店：比薩屋、SUKHOTHAI、辰園、桃山",
+          "discount": "75 折",
+          "conditions": [
+            "每次限 10 人（含）以下享優惠",
+            "平假日午餐、晚餐 75 折"
+          ]
+        },
+        {
+          "restaurant_name": "台北喜來登大飯店：大廳酒吧",
+          "discount": "75 折",
+          "conditions": [
+            "每次限 10 人（含）以下享優惠",
+            "平假日全日營業時段 75 折"
+          ]
+        }
+      ],
+      "source": "國泰世界卡.md"
+    },
+
+    {
+      "doc_type": "benefit_rule",
+      "scheme_id": "worldcard_airport_transfer",
+      "rule_type": "機場接送資格與次數",
+      "card_name": "國泰世華世界卡",
+      "segments": [
+        {
+          "segment_name": "財富管理鑽石VIP",
+          "qualification": "持有效世界卡正卡，且前一月近三個月平均往來資產餘額達等值 NT$30,000,000(含)以上。",
+          "base_quota": 2,
+          "extra_quota_condition": "2025 年度世界卡一般消費刷卡滿 NT$300,000",
+          "extra_quota": 2,
+          "max_quota": 4
+        },
+        {
+          "segment_name": "一般世界卡卡友",
+          "qualification": "持有效世界卡正卡或附卡。",
+          "base_quota": 0,
+          "extra_quota_condition": "2025 年度世界卡一般消費刷卡滿 NT$300,000",
+          "extra_quota": 2,
+          "max_quota": 2
+        }
+      ],
+      "note": "正附卡消費與次數合併計算，持卡人須為搭乘乘客之一；達檻後以簡訊通知，自次次月起可預約使用。",
+      "source": "國泰世界卡.md"
+    },
+
+    {
+      "doc_type": "benefit_rule",
+      "scheme_id": "worldcard_le_orano",
+      "rule_type": "Le Oràno 會籍使用方式",
+      "card_name": "國泰世華世界卡",
+      "conditions": [
+        "活動期間：2025/01/01~2025/12/31。",
+        "世界卡卡友至 Le Oràno 活動網頁輸入卡號索取專屬邀請碼並註冊會員。"
+      ],
+      "benefits": [
+        "Le Oràno 奢華旅遊私人俱樂部免費一年 Club 會籍（價值 USD 300）",
+        "全球超過 2,000 間頂級奢華酒店專屬禮遇",
+        "環宇商務中心尊榮禮遇通關專屬優惠價",
+        "高端旅遊行程預訂服務"
+      ],
+      "note": "詳細禮遇內容及使用方式請詳 Le Oràno 活動網頁。",
+      "source": "國泰世界卡.md"
+    },
+
+    {
+      "doc_type": "benefit_rule",
+      "scheme_id": "worldcard_lounges",
+      "rule_type": "機場貴賓室使用規則",
+      "card_name": "國泰世華世界卡",
+      "conditions": [
+        "活動期間：2025/01/01~2025/12/31。",
+        "世界卡新增消費達以下任一門檻，即享免費使用機場貴賓室：",
+        "1）2 個月內機票或旅遊團費新增消費合計達 NT$10,000。",
+        "2）當月已產生帳單或前一月帳單新增消費達 NT$20,000。",
+        "3）前三期帳單合計新增消費達 NT$60,000。"
+      ],
+      "lounges": [
+        "環亞機場貴賓室：桃園國際機場、松山國際機場",
+        "全球約 1600 間龍騰卡機場貴賓室"
+      ],
+      "usage_limit": "2025 年度每戶免費使用次數上限 8 次，各適用貴賓室合併計算。",
+      "sharing_rule": [
+        "世界卡正卡、附卡與美元雙幣鈦金商務卡正卡共用年度次數。",
+        "財富管理鑽石VIP世界卡正卡與附卡可尊享攜伴共用年度次數之貴賓禮遇。"
+      ],
+      "how_to_use": [
+        "持卡人本人出示世界卡及本人登機證即可使用國內外指定機場貴賓室。",
+        "海外機場貴賓室須先申請龍騰卡，方可使用全球龍騰卡機場貴賓室。"
+      ],
+      "source": "國泰世界卡.md"
+    },
+
+    {
+      "doc_type": "benefit_rule",
+      "scheme_id": "worldcard_funnow",
+      "rule_type": "FunNow 優惠規則",
+      "card_name": "國泰世華世界卡",
+      "conditions": [
+        "活動期間：即日起至 2025/12/31。",
+        "須由「國泰世華世界卡 X FunNow 活動網頁」進入預訂。",
+        "需使用國泰世華世界卡結帳並輸入對應限量優惠碼。"
+      ],
+      "offers": [
+        {
+          "name": "日本指定餐廳 5 折",
+          "code": "CATH1000",
+          "detail": "每月限量 20 名，單筆最高折抵 10,000 日圓，限使用 1 次。"
+        },
+        {
+          "name": "日本指定餐廳 85 折",
+          "code": "CATH85",
+          "detail": "每月限量 100 名，單筆最高折抵 1,000 日圓，上限 3 次。"
+        },
+        {
+          "name": "饗食露營 75 折",
+          "code": "CATH75",
+          "detail": "每月限量 100 名，單筆最高折抵 NT$1,000，限使用 1 次。"
+        }
+      ],
+      "note": [
+        "詳細禮遇內容及使用方式請詳「國泰世華世界卡 X FunNow 活動網頁」。",
+        "本優惠限國泰世華銀行世界卡持卡人本人使用，亞洲萬里通聯名世界卡不適用。"
+      ],
+      "source": "國泰世界卡.md"
+    }
+  ]
+}

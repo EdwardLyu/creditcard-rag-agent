@@ -1,3 +1,4 @@
+# agent_client
 import asyncio
 import json
 import os
@@ -6,7 +7,7 @@ from contextlib import AsyncExitStack
 from typing import Any, Dict, List, Optional
 
 from dotenv import load_dotenv
-from openai import AzureOpenAI
+from openai import OpenAI  # 改用 OpenAI client（指向 Gemini 相容端點）
 from openai.types.chat import ChatCompletionMessageParam
 from mcp.client.stdio import stdio_client, StdioServerParameters
 from mcp import ClientSession
@@ -18,19 +19,31 @@ from mcp import ClientSession
 # ==========================================
 # 1. 環境設定與初始化
 # ==========================================
-load_dotenv()
+from pathlib import Path
 
-# 檢查必要的 Azure OpenAI 環境變數
-required_vars = ["AOAI_KEY", "AOAI_URL", "AOAI_MODEL_VERSION"]
-if not all(k in os.environ for k in required_vars):
-    print(f"❌ 錯誤：缺少必要的環境變數: {required_vars}")
+# 在這個檔案所在的資料夾，往上找 .env
+env_path = Path(__file__).parent / ".env"
+load_dotenv(dotenv_path=env_path)
+
+# 檢查 Gemini 相關環境變數
+required_vars = ["GEMINI_API_KEY"]
+missing = [k for k in required_vars if k not in os.environ or not os.environ[k].strip()]
+if missing:
+    print(f"❌ 錯誤：缺少必要的環境變數: {missing}")
     sys.exit(1)
 
-# 初始化 Azure OpenAI Client (這是 Client 端的 Router 大腦)
-client = AzureOpenAI(
-    api_key=os.getenv("AOAI_KEY"),
-    azure_endpoint=os.getenv("AOAI_URL"),
-    api_version=os.getenv("AOAI_MODEL_VERSION"),
+# 讀取 Gemini 相關設定
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GEMINI_BASE_URL = os.getenv(
+    "GEMINI_BASE_URL",
+    "https://generativelanguage.googleapis.com/v1beta/openai/",
+)
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+
+# 初始化 OpenAI Client（連到 Gemini 的 OpenAI-compatible 端點）
+client = OpenAI(
+    api_key=GEMINI_API_KEY,
+    base_url=GEMINI_BASE_URL,
 )
 
 # ==========================================
@@ -104,46 +117,39 @@ tool_schemas = [
 # 4. 定義 System Prompt (派單員邏輯)
 # ==========================================
 
-# ------------------------------------------
-# TODO 務必修改 system prompt 以符合你的需求我們的專案要求，包括但不限於 :
-# 1.使用者資訊檢查：根據使用者的問題回答還需要哪些資訊，例如：使用者想了解某筆交易所能獲得的回饋，就請他提供金額、日期、發票開立公司名稱等等 
-# 2.專家 Agent 的職責與分工：請明確定義每個 Agent 的專長與適用情境，避免重疊或模糊不清
-# 下面的範例為gemini所生成僅供參考
-# ------------------------------------------
-
 SYSTEM_PROMPT = """
 你是一個專業的信用卡服務總管 (Main Dispatcher)。
 你的職責不是直接回答問題，而是**分析使用者的意圖**，並指揮手下的「專家 Agent」來完成任務。
 
-# 👑 你的核心原則
+# 你的核心原則
 1. **精準分派**：不要自己瞎掰答案，所有資訊都必須來自專家 Agent。
 2. **多工處理**：如果問題需要查證單一卡片細節，又要進行比較，請**同時呼叫**兩個 Agent。
 3. **資訊完整**：傳遞給 Agent 的 `user_query` 必須包含完整的上下文。
 
-# 🕵️‍♂️ 專家 Agent 介紹與使用時機
+# 專家 Agent 介紹與使用時機
 
 請根據使用者的問題類型，選擇最適合的 Agent：
 
-### 1. 💳 產品專家 (product_agent)
+### 1. 產品專家 (product_agent)
 - **專長**：單一卡片的客觀數據、官方條款、硬性規定。
 - **適用問題**：
     - 「CUBE卡年費多少？」
     - 「世界卡海外消費回饋幾趴？」
     - 「申請資格是什麼？」
 
-### 2. ⚖️ 比較與推薦專家 (comparing_agent)
+### 2. 比較與推薦專家 (comparing_agent)
 - **專長**：多卡比較分析、決策建議、推薦。
 - **適用問題**：
     - 「我有學生身分，推薦哪張卡？」
     - 「CUBE卡 跟 Rose卡 哪張比較好？」
     - 「我去日本玩要刷哪張？」
 
-# 🚦 決策邏輯 (Routing Logic)
+# 決策邏輯 (Routing Logic)
 
 **步驟 1：檢查資訊是否充足**
 - 如果使用者想求推薦（如「推薦我一張卡」），但**未提供**職業、年齡或消費習慣：
-- ⛔ **禁止呼叫 Agent**。
-- 💬 **直接反問使用者**：「為了精準推薦，請問您的職業是學生還是上班族？平常主要的消費通路為何？」
+- **禁止呼叫 Agent**。
+- **直接反問使用者**：「為了精準推薦，請問您的職業是學生還是上班族？平常主要的消費通路為何？」
 
 **步驟 2：判斷路由**
 - **查詢單一卡片**：問年費、權益 -> 呼叫 `product_agent`。
@@ -187,10 +193,9 @@ async def chat() -> None:
             print("🚀 系統準備就緒！(輸入 'q' 離開)")
 
             # --- B. 建立路由對照表 (Tool Name -> Session) ---
-            # 這裡將新的工具名稱對應到連線 Session
             SESSION_MAP = {
-                "product_agent": sess_prod,     # 對應 product_agent
-                "comparing_agent": sess_adv     # 對應 comparing_agent
+                "product_agent": sess_prod,
+                "comparing_agent": sess_adv
             }
 
             # --- C. 對話主迴圈 ---
@@ -209,7 +214,7 @@ async def chat() -> None:
                     # 1. Router 思考 (決定要找誰)
                     print("🤔 [Router] 正在分析意圖...", end="\r")
                     response = client.chat.completions.create(
-                        model=os.getenv("AOAI_MODEL_VERSION"),
+                        model=GEMINI_MODEL,  # ✅ 改用 Gemini 模型
                         messages=messages,
                         tools=tool_schemas,
                         tool_choice="auto",
@@ -233,7 +238,6 @@ async def chat() -> None:
                             
                             if target_sess:
                                 print(f"   -> 派單給: {name}")
-                                # 建立 Task 但不馬上 await (為了並行)
                                 task = target_sess.call_tool(name, arguments=args)
                                 tasks.append((tool_call, task))
                             else:
@@ -276,7 +280,7 @@ async def chat() -> None:
                         
                         print("📝 [Router] 正在整合資訊...")
                         final_response = client.chat.completions.create(
-                            model=os.getenv("AOAI_MODEL_VERSION"),
+                            model=GEMINI_MODEL,
                             messages=messages
                         )
                         final_answer = final_response.choices[0].message.content
@@ -284,7 +288,7 @@ async def chat() -> None:
                         messages.append(final_response.choices[0].message)
 
                     else:
-                        # 沒有呼叫工具
+                        # 沒有呼叫工具，就把 Router 自己的回答顯示出來
                         print(f"\n💬 (總管): {msg.content}")
 
                 except Exception as e:

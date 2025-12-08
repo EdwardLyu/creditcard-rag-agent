@@ -1,45 +1,54 @@
+# comparing_agent.py
 import os
 import sys
 import json
 import asyncio
 from mcp.server.fastmcp import FastMCP
 from dotenv import load_dotenv
-from openai import AzureOpenAI
+from openai import OpenAI  # ✅ 改成使用 OpenAI client（指向 Gemini API）
 
 # 1. 初始化環境
-load_dotenv()
+from pathlib import Path
 
+# 在這個檔案所在的資料夾，往上找 .env
+env_path = Path(__file__).parent / ".env"
+load_dotenv(dotenv_path=env_path)
+
+# === 讀取 Gemini 設定 ===
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GEMINI_BASE_URL = os.getenv(
+    "GEMINI_BASE_URL",
+    "https://generativelanguage.googleapis.com/v1beta/openai/"
+)
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+
+# 建立 Gemini-compatible client
 try:
-    aoai_client = AzureOpenAI(
-        api_key=os.getenv("AOAI_KEY"),
-        azure_endpoint=os.getenv("AOAI_URL"),
-        api_version=os.getenv("AOAI_MODEL_VERSION"),
+    llm_client = OpenAI(
+        api_key=GEMINI_API_KEY,
+        base_url=GEMINI_BASE_URL,
     )
 except Exception as e:
-    print(f"❌ AOAI Client 初始化失敗: {e}", file=sys.stderr)
-    aoai_client = None
+    print(f"❌ Gemini Client 初始化失敗: {e}", file=sys.stderr)
+    llm_client = None
 
 mcp = FastMCP("comparing-expert-agent")
 
 # ==========================================
-# 2. 定義內部工具 (Internal Tools) - 廚房裡的工具
+# 2. 內部工具 (Internal Tools)
 # ==========================================
-# 這些工具只在 Server 內部運作，Client 端(rag_mcp_client.py) 完全不知道它們的存在
 
 async def tool_example_1(card_name: str) -> str:
-    """模擬查詢資料庫：取得卡片基礎回饋率"""
-    print(f"   ⚙️ [Internal Tool] 執行 tool_example_1 (查回饋) | 參數: {card_name}", file=sys.stderr)
-    # 模擬資料庫回傳
+    print(f"   ⚙️ [Internal Tool] 查回饋 | card={card_name}", file=sys.stderr)
     if "CUBE" in card_name.upper():
         return json.dumps({"card": "CUBE卡", "reward_rate": "3%", "note": "需切換權益"})
     elif "ROSE" in card_name.upper():
         return json.dumps({"card": "Rose Giving卡", "reward_rate": "3%", "note": "節假日限定"})
     else:
-        return json.dumps({"error": "查無此卡片資料"})
+        return json.dumps({"error": "查無此卡資料"})
 
 async def tool_example_2(score_a: int, score_b: int) -> str:
-    """模擬計算工具：比較兩個分數的差距"""
-    print(f"   ⚙️ [Internal Tool] 執行 tool_example_2 (比分數) | 參數: {score_a} vs {score_b}", file=sys.stderr)
+    print(f"   ⚙️ [Internal Tool] 比分數 | {score_a} vs {score_b}", file=sys.stderr)
     diff = score_a - score_b
     if diff > 0:
         return f"A比B高 {diff} 分"
@@ -49,8 +58,7 @@ async def tool_example_2(score_a: int, score_b: int) -> str:
         return "兩者分數相同"
 
 async def tool_example_3(user_type: str) -> str:
-    """模擬推薦系統：根據使用者類型推薦卡片"""
-    print(f"   ⚙️ [Internal Tool] 執行 tool_example_3 (找推薦) | 參數: {user_type}", file=sys.stderr)
+    print(f"   ⚙️ [Internal Tool] 推薦卡片 | 使用者={user_type}", file=sys.stderr)
     if "學生" in user_type:
         return "推薦: CUBE卡 (門檻低)"
     elif "富豪" in user_type:
@@ -59,18 +67,19 @@ async def tool_example_3(user_type: str) -> str:
         return "推薦: 現金回饋御璽卡 (通用)"
 
 # ==========================================
-# 3. 定義工具清單 (JSON Schema) - 給 LLM 看的菜單
+# 3. 工具 Schemas
 # ==========================================
+
 INTERNAL_TOOLS_SCHEMA = [
     {
         "type": "function",
         "function": {
             "name": "tool_example_1",
-            "description": "查詢特定信用卡的基礎回饋率資料。",
+            "description": "查詢卡片基礎回饋率。",
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "card_name": {"type": "string", "description": "卡片名稱"}
+                    "card_name": {"type": "string"}
                 },
                 "required": ["card_name"]
             }
@@ -80,12 +89,12 @@ INTERNAL_TOOLS_SCHEMA = [
         "type": "function",
         "function": {
             "name": "tool_example_2",
-            "description": "比較兩個數值或權益分數的差異。",
+            "description": "比較兩個分數差異。",
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "score_a": {"type": "integer", "description": "第一張卡的分數"},
-                    "score_b": {"type": "integer", "description": "第二張卡的分數"}
+                    "score_a": {"type": "integer"},
+                    "score_b": {"type": "integer"}
                 },
                 "required": ["score_a", "score_b"]
             }
@@ -95,11 +104,11 @@ INTERNAL_TOOLS_SCHEMA = [
         "type": "function",
         "function": {
             "name": "tool_example_3",
-            "description": "根據使用者身分(如學生、富豪)獲取系統推薦的卡片。",
+            "description": "依使用者身分推薦卡片。",
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "user_type": {"type": "string", "description": "使用者類型"}
+                    "user_type": {"type": "string"}
                 },
                 "required": ["user_type"]
             }
@@ -111,24 +120,25 @@ COMPARING_SYSTEM_PROMPT = """
 你是國泰世華銀行的「信用卡比較與推薦顧問」。
 你的任務是回答使用者的比較問題或推薦請求。
 
-# 可用工具：
-- `tool_example_1`: 查詢卡片回饋率。
-- `tool_example_2`: 比較兩個分數差異。
-- `tool_example_3`: 根據身分推薦卡片。
+可用工具：
+- tool_example_1：查回饋率
+- tool_example_2：比分數
+- tool_example_3：依身分推薦卡片
 
-# 規則：
-- 盡量使用工具來獲取確切資訊，而不是憑空猜測。
-- 收到工具結果後，請整合成親切的顧問口吻回覆使用者。
+原則：
+- 優先使用工具來獲得資料
+- 結果需整理成清楚、親切的建議
 """
 
 # ==========================================
-# 4. 核心邏輯層 (ReAct Loop)
+# 4. REACT LOOP（核心邏輯）
 # ==========================================
-async def _generate_response(user_query: str, user_profile: str = "") -> str:
-    if not aoai_client:
-        return "❌ 系統錯誤：Agent 腦部連線失敗。"
 
-    # 準備初始對話歷史
+async def _generate_response(user_query: str, user_profile: str = "") -> str:
+    if not llm_client:
+        return "❌ 系統錯誤：LLM client 未初始化"
+
+    # 將背景資料一起加入 prompt
     full_content = f"使用者問題：{user_query}"
     if user_profile:
         full_content += f"\n使用者背景：{user_profile}"
@@ -138,103 +148,92 @@ async def _generate_response(user_query: str, user_profile: str = "") -> str:
         {"role": "user", "content": full_content}
     ]
 
-    # 設定最大思考次數 (避免無窮迴圈)
     MAX_TURNS = 5
-    current_turn = 0
+    turn = 0
 
     try:
-        while current_turn < MAX_TURNS:
-            current_turn += 1
-            
-            # 1. 呼叫 LLM (思考)
-            response = aoai_client.chat.completions.create(
-                model=os.getenv("AOAI_MODEL_VERSION"),
-                messages=messages,
-                tools=INTERNAL_TOOLS_SCHEMA, # 給它看內部工具
-                tool_choice="auto"
-            )
-            msg = response.choices[0].message
-            messages.append(msg) # 將 LLM 的回應加入歷史
+        while turn < MAX_TURNS:
+            turn += 1
 
-            # 2. 判斷是否需要呼叫工具
+            # === 呼叫 Gemini ===
+            response = llm_client.chat.completions.create(
+                model=GEMINI_MODEL,
+                messages=messages,
+                tools=INTERNAL_TOOLS_SCHEMA,
+                tool_choice="auto",
+            )
+
+            msg = response.choices[0].message
+            messages.append(msg)
+
+            # 若模型直接給答案 → 結束
             if not msg.tool_calls:
-                # LLM 認為不需要呼叫工具，直接生成了回答 -> 任務結束
                 return msg.content
 
-            # 3. 執行工具 (行動)
+            # === 執行工具 ===
             for tool_call in msg.tool_calls:
-                func_name = tool_call.function.name
+                fname = tool_call.function.name
                 args = json.loads(tool_call.function.arguments)
-                
-                result_content = ""
-                
-                # 簡單的工具路由
-                if func_name == "tool_example_1":
-                    result_content = await tool_example_1(**args)
-                elif func_name == "tool_example_2":
-                    result_content = await tool_example_2(**args)
-                elif func_name == "tool_example_3":
-                    result_content = await tool_example_3(**args)
-                else:
-                    result_content = json.dumps({"error": "Unknown tool"})
 
-                # 4. 將工具結果加入歷史 (觀察)
+                if fname == "tool_example_1":
+                    result = await tool_example_1(**args)
+                elif fname == "tool_example_2":
+                    result = await tool_example_2(**args)
+                elif fname == "tool_example_3":
+                    result = await tool_example_3(**args)
+                else:
+                    result = json.dumps({"error": "Unknown internal tool"})
+
+                # 回傳給 LLM
                 messages.append({
                     "role": "tool",
                     "tool_call_id": tool_call.id,
-                    "name": func_name,
-                    "content": str(result_content)
+                    "name": fname,
+                    "content": result
                 })
-            
-            # 迴圈繼續，LLM 會在下一輪看到工具結果並進行整合...
 
-        return "思考次數過多，無法產生完整回答。"
+        return "⚠️ 思考次數過多（超過 MAX_TURNS），未能完成回答。"
 
     except Exception as e:
-        return f"Agent 執行發生錯誤: {str(e)}"
+        return f"❌ Agent 執行錯誤：{e}"
 
 # ==========================================
-# MCP 介面層
+# 5. MCP Tool Entry
 # ==========================================
+
 @mcp.tool()
 async def comparing_agent(user_query: str, user_profile: str = "") -> str:
-    """【比較與推薦專家入口】接收使用者問題與背景，透過 LLM 與內部工具生成建議。"""
-    print(f"⚖️ [Comparing Agent] 收到請求 (MCP) | Query: {user_query}", file=sys.stderr)
+    print(f"⚖️ [Comparing Agent] 收到請求 | Query={user_query}", file=sys.stderr)
     return await _generate_response(user_query, user_profile)
 
 # ==========================================
-# Local 測試層
+# Local 測試
 # ==========================================
+
 async def local_chat_loop():
-    print("\n⚖️ --- 比較與推薦 Agent (本地測試模式) ---")
-    print("輸入 'q' 離開。")
-    print("(測試提示：試著問 'CUBE卡回饋多少?' 或 '我是學生推薦哪張?' 或 '比較 100 和 80')")
-    
-    profile = input("設定測試用 User Profile (按 Enter 跳過): ").strip()
-    
+    print("\n⚖️ --- Comparing Agent Local Mode ---")
+    print("輸入 'q' 離開")
+
+    profile = input("設定 user_profile (可留空): ").strip()
+
     while True:
-        try:
-            user_input = input("\n👤 (User): ").strip()
-            if user_input.lower() in ['q', 'quit', 'exit']:
-                break
-            if not user_input:
-                continue
-            
-            print("⚖️ (Agent): 思考中...", end="\r")
-            reply = await _generate_response(user_input, profile)
-            print(f"⚖️ (Agent): {reply}")
-            
-        except KeyboardInterrupt:
+        user_input = input("\n👤 User: ").strip()
+        if user_input.lower() in ("q", "quit", "exit"):
             break
-    print("\nBye!")
+
+        reply = await _generate_response(user_input, profile)
+        print(f"⚖️ Agent: {reply}")
+
+    print("Bye!")
 
 # ==========================================
-# 主程式入口
+# 伺服器入口
 # ==========================================
+
 if __name__ == "__main__":
     if "--local" in sys.argv:
-        if sys.platform.startswith('win'):
-             asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+        if sys.platform.startswith("win"):
+            asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
         asyncio.run(local_chat_loop())
     else:
         print("⚖️ Comparing Agent Server starting...", file=sys.stderr)

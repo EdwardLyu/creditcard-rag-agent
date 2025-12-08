@@ -1,0 +1,1210 @@
+{
+  "benefit_scheme": [
+    {
+      "doc_type": "benefit_scheme",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": "玩數位",
+      "valid_period": "2025/07/01-2025/12/31",
+      "surface_desc": "AI工具、數位串流平台、網購平台、國際電商等指定通路，依權益分級享 2%~3.3% 小樹點(信用卡)回饋；特約商店分期付款（含提前結清）僅回饋一般消費0.3%。",
+      "channel_groups": {
+        "AI工具": [
+          "ChatGPT",
+          "Canva",
+          "Claude",
+          "Cursor",
+          "Duolingo",
+          "Gamma",
+          "Gemini",
+          "Notion",
+          "Perplexity",
+          "Speak"
+        ],
+        "數位串流平台": [
+          "Apple 媒體服務",
+          "Google Play",
+          "Disney+",
+          "Netflix",
+          "Spotify",
+          "KKBOX",
+          "YouTube Premium",
+          "Max"
+        ],
+        "網購平台": [
+          "蝦皮購物",
+          "momo購物網",
+          "PChome 24h購物(不含儲值及電子票券)",
+          "小樹購(不含電子票券)"
+        ],
+        "國際電商": [
+          "Coupang 酷澎(台灣)",
+          "淘寶/天貓"
+        ]
+      },
+      "reward_levels": {
+        "L1": 2.0,
+        "L2": 3.0,
+        "L3": 3.3
+      },
+      "notes": "自2024/2/1起於特約商店分期付款消費（含提前結清），不適用各權益方案之指定消費回饋，僅適用一般消費0.3%。",
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "benefit_scheme",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": "樂饗購",
+      "valid_period": "2025/07/01-2025/12/31",
+      "surface_desc": "國內百貨、外送平台、國內餐飲、藥妝等指定通路，依權益分級享 2%~3.3% 小樹點(信用卡)回饋；特約商店分期付款（含提前結清）僅回饋一般消費0.3%。",
+      "channel_groups": {
+        "國內指定百貨": [
+          "遠東SOGO百貨",
+          "遠東Garden City",
+          "太平洋百貨",
+          "新光三越",
+          "SKM Park",
+          "BELLAVITA",
+          "微風廣場",
+          "遠東百貨",
+          "Big City遠東巨城購物中心",
+          "環球購物中心",
+          "CITYLINK",
+          "統一時代台北店(不含DREAM PLAZA)",
+          "台北101",
+          "ATT 4 FUN",
+          "明曜百貨",
+          "京站",
+          "美麗華",
+          "大葉高島屋",
+          "比漾廣場",
+          "大江國際購物中心",
+          "中友百貨",
+          "廣三SOGO",
+          "Tiger City",
+          "勤美誠品綠園道",
+          "大魯閣新時代",
+          "南紡購物中心",
+          "夢時代",
+          "漢神百貨",
+          "漢神巨蛋",
+          "MITSUI OUTLET PARK(林口、台中港、台南)",
+          "義大世界購物廣場",
+          "華泰名品城",
+          "麗寶OUTLET Mall",
+          "秀泰生活",
+          "台茂購物中心",
+          "新月廣場",
+          "三創生活",
+          "宏匯廣場",
+          "NOKE忠泰樂生活"
+        ],
+        "國內外送平台": [
+          "Uber Eats",
+          "foodpanda"
+        ],
+        "國內餐飲": [
+          "國內餐飲(依 MCC 5811/5812/5814/5462 判定)"
+        ],
+        "國內藥妝": [
+          "康是美",
+          "屈臣氏"
+        ]
+      },
+      "reward_levels": {
+        "L1": 2.0,
+        "L2": 3.0,
+        "L3": 3.3
+      },
+      "notes": [
+        "國內百貨回饋資格以刷卡簽單特店名稱認定，不含店中櫃與百貨附設電影院等。"
+      ],
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "benefit_scheme",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": "趣旅行",
+      "valid_period": "2025/07/01-2025/12/31",
+      "surface_desc": "海外實體消費、日本指定遊樂園、指定國內外交通、指定航空公司、飯店住宿、旅遊/訂房平台、國內旅行社等旅遊相關通路，依權益分級享 2%~3.3% 小樹點(信用卡)回饋；特約商店分期付款（含提前結清）僅回饋一般消費0.3%。",
+      "channel_groups": {
+        "指定海外消費": [
+          "海外實體消費(含國外餐飲、飯店到店付款等)"
+        ],
+        "日本指定遊樂園": [
+          "東京迪士尼樂園",
+          "東京華納兄弟哈利波特影城",
+          "大阪環球影城(USJ)"
+        ],
+        "指定國內外交通": [
+          "Apple錢包指定交通卡(SUICA、PASMO、ICOCA)",
+          "Uber",
+          "Grab",
+          "台灣高鐵",
+          "yoxi",
+          "台灣大車隊",
+          "iRent",
+          "和運租車",
+          "格上租車"
+        ],
+        "指定航空公司": [
+          "中華航空",
+          "長榮航空",
+          "星宇航空",
+          "台灣虎航",
+          "國泰航空",
+          "樂桃航空",
+          "阿聯酋航空",
+          "酷航",
+          "捷星航空",
+          "日本航空",
+          "ANA全日空",
+          "亞洲航空",
+          "聯合航空",
+          "新加坡航空",
+          "越捷航空",
+          "大韓航空",
+          "達美航空",
+          "土耳其航空",
+          "卡達航空",
+          "法國航空"
+        ],
+        "指定飯店住宿": [
+          "國內飯店住宿",
+          "星野集團",
+          "全球迪士尼飯店",
+          "東橫INN"
+        ],
+        "指定旅遊/訂房平台": [
+          "KKday",
+          "Agoda",
+          "Klook",
+          "Airbnb",
+          "Booking.com",
+          "Trip.com"
+        ],
+        "指定旅行社": [
+          "ezTravel易遊網",
+          "雄獅旅遊",
+          "可樂旅遊",
+          "東南旅遊",
+          "五福旅遊",
+          "燦星旅遊",
+          "山富旅遊",
+          "長汎假期",
+          "鳳凰旅行社",
+          "Ezfly易飛網",
+          "理想旅遊",
+          "永利旅行社",
+          "三賀旅行社"
+        ]
+      },
+      "reward_levels": {
+        "L1": 2.0,
+        "L2": 3.0,
+        "L3": 3.3
+      },
+      "notes": "海外實體消費須為交易地點非台灣或幣別非台幣，且部分類別(如醫療、博奕、機上消費等)排除；指定航空公司與飯店住宿須於航空公司/飯店臨櫃、官網或APP刷卡，不含旅行社或套裝行程。",
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "benefit_scheme",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": "集精選",
+      "valid_period": "2025/07/01-2025/12/31",
+      "surface_desc": "量販超市、指定加油、指定超商、生活家居等指定品牌通路，依權益分級回饋固定為2% 小樹點(信用卡)；特約商店分期付款（含提前結清）僅回饋一般消費0.3%。",
+      "channel_groups": {
+        "量販超市": [
+          "家樂福",
+          "LOPIA台灣",
+          "全聯福利中心(不含大全聯)"
+        ],
+        "指定加油": [
+          "台灣中油-直營站"
+        ],
+        "指定超商": [
+          "7-ELEVEN (7-11) 實體門市",
+          "全家便利商店"
+        ],
+        "生活家居": [
+          "IKEA宜家家居"
+        ]
+      },
+      "reward_levels": {
+        "L1": 2.0,
+        "L2": 2.0,
+        "L3": 2.0
+      },
+      "notes": "限選定集精選方案方可獲指定消費回饋；家樂福、LOPIA、全聯、中油、超商等通路均有排除項目與限制，詳見 benefit_rule。",
+      "source": "cube_benefits.md"
+    }
+  ],
+  "benefit_rule": [
+    {
+      "doc_type": "benefit_rule",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": "玩數位",
+      "channel_group": "數位串流平台",
+      "channel": "Apple 媒體服務",
+      "rule_type": "exclusion",
+      "rule_text": "Apple 媒體服務包含 App Store、Apple Music、iCloud 等服務，不含 Apple Store 之交易。",
+      "mcc": null,
+      "include": [
+        "App Store",
+        "Apple Music",
+        "iCloud 等 Apple 媒體服務"
+      ],
+      "exclude": [
+        "Apple Store 實體門市交易"
+      ],
+      "level_applicable": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "note": null,
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "benefit_rule",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": "玩數位",
+      "channel_group": "網購平台",
+      "channel": "蝦皮購物",
+      "rule_type": "exclusion",
+      "rule_text": "蝦皮購物黃金、白銀等貴金屬、珠寶、遊戲點數、實體或電子票券等不列入玩數位指定消費回饋，相關品項之整筆訂單僅回饋一般消費0.3%。",
+      "mcc": null,
+      "include": [],
+      "exclude": [
+        "黃金、白銀等貴金屬",
+        "珠寶",
+        "遊戲點數",
+        "各類實體或電子票券（如百貨禮券、餐飲券、電影票券、住宿券、提貨券）",
+        "遊戲點數旗艦店",
+        "票券專區/票券館內品項"
+      ],
+      "level_applicable": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "note": "上述排除項目之整筆訂單僅回饋0.3%小樹點(信用卡)。",
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "benefit_rule",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": "玩數位",
+      "channel_group": "網購平台",
+      "channel": "PChome 24h購物",
+      "rule_type": "restriction",
+      "rule_text": "PChome 24h購物不含商店街、PChomePay 支付連、海外代購、旅遊等通路，且若同一訂單含儲值或電子票券，整筆訂單僅回饋0.3%。",
+      "mcc": null,
+      "include": [
+        "PChome 24h購物網站",
+        "PChome 24h購物 APP",
+        "PChome 24h書店"
+      ],
+      "exclude": [
+        "PChome 商店街",
+        "PChomePay 支付連",
+        "海外代購",
+        "旅遊商品",
+        "儲值商品整筆訂單",
+        "電子票券整筆訂單"
+      ],
+      "level_applicable": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "note": "建議將一般商品與儲值/票券商品分開結帳，以保留指定消費回饋資格。",
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "benefit_rule",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": "樂饗購",
+      "channel_group": "國內餐飲",
+      "channel": "國內餐飲",
+      "rule_type": "restriction",
+      "rule_text": "國內餐飲認列之餐廳限交易地點為臺灣，且依收單機構設定之餐廳分類代碼(MCC)為5811、5812、5814、5462。",
+      "mcc": [
+        "5811",
+        "5812",
+        "5814",
+        "5462"
+      ],
+      "include": [
+        "交易地點為臺灣之餐飲消費",
+        "透過聯合信用卡中心小額支付平台收費之餐廳"
+      ],
+      "exclude": [
+        "購買餐券",
+        "飯店/旅館/酒店之餐飲",
+        "百貨/商場美食街餐廳"
+      ],
+      "level_applicable": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "note": "需選定樂饗購方案方可享指定消費回饋。",
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "benefit_rule",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": "集精選",
+      "channel_group": "量販超市",
+      "channel": "家樂福",
+      "rule_type": "exclusion",
+      "rule_text": "家樂福之會員換購、菸酒商品、代收代售、藥局藥品、嬰幼兒奶粉、禮券與儲值、虛擬儲值、運費等多項皆不列入集精選指定消費回饋。",
+      "mcc": null,
+      "include": [],
+      "exclude": [
+        "會員換購",
+        "菸酒商品",
+        "代收代售項目",
+        "藥局藥品",
+        "嬰幼兒奶粉及配方食品",
+        "團購商品",
+        "商品提貨券",
+        "儲值禮物卡",
+        "家樂福錢包儲值金及使用儲值金消費",
+        "虛擬儲值（電話預付卡、線上遊戲點數卡、KKBOX 等）",
+        "安裝與運費",
+        "垃圾袋與環保相關指定品項",
+        "預購及大宗採購",
+        "美食街與商店街消費"
+      ],
+      "level_applicable": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "note": "限選定集精選方案方可獲指定消費回饋。",
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "benefit_rule",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": "集精選",
+      "channel_group": "量販超市",
+      "channel": "全聯福利中心",
+      "rule_type": "exclusion",
+      "rule_text": "全聯福利中心實體門市店內消費(含PX Pay綁卡交易，不含全支付綁卡交易)，排除菸品、代收代售、一歲以下嬰兒奶粉、印花活動商品、積分活動商品、點數換購商品、禮券購買(含PX Pay App線上購買樂透卡/禮卡)，且不含高速公路服務區、醫院美食街及企業辦公大樓等場域門市。",
+      "mcc": null,
+      "include": [
+        "全聯福利中心實體門市",
+        "PX Pay 綁CUBE卡交易"
+      ],
+      "exclude": [
+        "菸品",
+        "代收代售",
+        "一歲以下嬰兒奶粉",
+        "印花活動商品",
+        "積分活動商品",
+        "點數換購商品",
+        "禮券購買(含PX Pay App線上購買樂透卡/禮卡)",
+        "高速公路服務區門市",
+        "醫院美食街門市",
+        "企業辦公大樓門市",
+        "全支付綁卡交易"
+      ],
+      "level_applicable": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "note": "限選定集精選方案方可獲指定消費回饋，選定其他方案則不予回饋。",
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "benefit_rule",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": "集精選",
+      "channel_group": "指定加油",
+      "channel": "台灣中油-直營站",
+      "rule_type": "restriction",
+      "rule_text": "本活動回饋之台灣中油直營站加油限於中油網站公告之直營站；排除網路交易、電子票證、錢包儲值交易及第三方支付綁卡掃碼付款，亦不適用加氣站及任何不屬於加油站內之加油消費。",
+      "mcc": null,
+      "include": [
+        "中油直營加油站刷CUBE卡"
+      ],
+      "exclude": [
+        "網路交易",
+        "電子票證交易",
+        "錢包儲值",
+        "中油Pay",
+        "街口支付",
+        "LINE Pay",
+        "台灣Pay",
+        "悠遊付",
+        "Pi拍錢包",
+        "橘子支付",
+        "支付寶",
+        "加氣站",
+        "非加油站場域之加油消費"
+      ],
+      "level_applicable": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "note": "若付款失敗、取消交易、退貨，該筆加油金額將不予回饋。",
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "benefit_rule",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": "集精選",
+      "channel_group": "指定超商",
+      "channel": "7-ELEVEN",
+      "rule_type": "exclusion",
+      "rule_text": "7-ELEVEN實體門市(含OPEN錢包於店內支付、行動隨時取)之消費，排除菸品、隨取卡、代收代售消費；不含非7-ELEVEN實體門市及icash Pay付款。",
+      "mcc": null,
+      "include": [
+        "7-ELEVEN實體門市",
+        "OPEN錢包店內支付",
+        "行動隨時取"
+      ],
+      "exclude": [
+        "菸品",
+        "隨取卡",
+        "代收代售",
+        "高速公路服務區門市",
+        "醫院美食街門市",
+        "企業辦公大樓門市",
+        "icash Pay 綁卡付款",
+        "其他第三方/電子支付綁卡(如全盈支付、全支付等)"
+      ],
+      "level_applicable": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "note": "限選定集精選方案方可獲指定消費回饋，選定其他方案則不予回饋。",
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "benefit_rule",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": "集精選",
+      "channel_group": "指定超商",
+      "channel": "全家便利商店",
+      "rule_type": "exclusion",
+      "rule_text": "全家便利商店實體門市(含My FamiPay)於店內消費，排除菸品、代收代售、儲值消費、全+1商城以My FamiPay支付、全家行動購與好享券支付；不含高速公路服務區、醫院美食街及企業辦公大樓等場域之門市。",
+      "mcc": null,
+      "include": [
+        "全家便利商店實體門市",
+        "My FamiPay 店內支付"
+      ],
+      "exclude": [
+        "菸品",
+        "代收代售",
+        "儲值消費",
+        "全+1商城以My FamiPay支付",
+        "全家行動購",
+        "好享券支付",
+        "Fami錢包APP儲值",
+        "高速公路服務區門市",
+        "醫院美食街門市",
+        "企業辦公大樓門市",
+        "icash Pay / 全盈支付 / 全支付 等第三方支付綁卡"
+      ],
+      "level_applicable": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "note": "限選定集精選方案方可獲指定消費回饋。",
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "benefit_rule",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": "集精選",
+      "channel_group": "生活家居",
+      "channel": "IKEA宜家家居",
+      "rule_type": "restriction",
+      "rule_text": "集精選指定品牌/生活消費限直接使用CUBE卡刷卡或使用該卡加入 Apple Pay / Samsung Pay / Google Pay / Garmin Pay 消費，或以CUBE卡綁定指定支付工具，並選定集精選方案方可獲指定消費回饋。",
+      "mcc": null,
+      "include": [
+        "IKEA實體門市刷CUBE卡",
+        "IKEA實體門市以CUBE卡加入行動支付付款"
+      ],
+      "exclude": [
+        "未以CUBE卡或以CUBE卡綁定指定支付工具付款"
+      ],
+      "level_applicable": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "note": "實際排除項目依IKEA及國泰世華公告為準。",
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "benefit_rule",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": "趣旅行",
+      "channel_group": "指定海外消費",
+      "channel": "海外實體消費",
+      "rule_type": "restriction",
+      "rule_text": "海外實體消費係指交易地點非台灣或交易幣別非台幣，使用實體信用卡過卡或感應式刷卡(含加入Apple Pay、Samsung Pay、Google Pay、Garmin Pay之面對面交易)，儲值不列入計算。",
+      "mcc": null,
+      "include": [
+        "國外餐飲",
+        "國外飯店到店付款"
+      ],
+      "exclude": [
+        "儲值型交易",
+        "醫療事業(就醫、醫學美容等)",
+        "博奕類交易(賭博、賭場、賭博籌碼等)",
+        "飛機/郵輪上之消費",
+        "未經主管機關核准之境外投資交易平台(如 eToro)",
+        "其他經本行公告排除之項目(含保費等)"
+      ],
+      "level_applicable": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "note": "國外餐飲須符合指定MCC(5811、5812、5814)才納入回饋計算。",
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "benefit_rule",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": "趣旅行",
+      "channel_group": "日本指定遊樂園",
+      "channel": "日本指定遊樂園",
+      "rule_type": "restriction",
+      "rule_text": "日本指定遊樂園之回饋範圍包含園區內商店實體消費及門票預訂(限官方網站或官方App購票，不含旅行社、線上旅遊平台購票)，不含園區外之市區街邊店及遊樂園附設飯店。",
+      "mcc": null,
+      "include": [
+        "東京迪士尼樂園園內消費與門票",
+        "東京華納兄弟哈利波特影城園內消費與門票",
+        "大阪環球影城(USJ)園內消費與門票"
+      ],
+      "exclude": [
+        "遊樂園外之市區街邊店",
+        "遊樂園附設飯店",
+        "透過旅行社/線上旅遊平台購買門票"
+      ],
+      "level_applicable": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "note": "消費幣別需為日圓或消費國別為日本，並依特店名稱判斷。",
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "benefit_rule",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": "趣旅行",
+      "channel_group": "指定國內外交通",
+      "channel": "指定國內外交通",
+      "rule_type": "restriction",
+      "rule_text": "SUICA、PASMO、ICOCA須以Apple錢包加入交通卡綁定儲值；高鐵回饋僅限高鐵網站、APP、臨櫃、自動售票機之購票；台灣大車隊僅限App短程叫車服務，不含機場接送及代駕服務；Uber含國內外搭乘；Grab限搭乘，不含訂閱費。",
+      "mcc": null,
+      "include": [
+        "Apple錢包交通卡(SUICA/PASMO/ICOCA)儲值",
+        "台灣高鐵網站/APP/臨櫃/自動售票機購票",
+        "Uber 搭乘",
+        "Grab 搭乘",
+        "yoxi 叫車",
+        "台灣大車隊App短程叫車",
+        "iRent 租車",
+        "和運租車",
+        "格上租車"
+      ],
+      "exclude": [
+        "高鐵補票",
+        "列車上推車消費",
+        "台灣大車隊機場接送",
+        "台灣大車隊代駕服務",
+        "Grab 訂閱費"
+      ],
+      "level_applicable": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "note": "實際回饋以本行系統判定為高鐵/交通消費為準。",
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "benefit_rule",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": "趣旅行",
+      "channel_group": "指定航空公司",
+      "channel": "指定航空公司",
+      "rule_type": "restriction",
+      "rule_text": "指定航空公司係指以信用卡刷卡購買之指定國內外航空公司機票，限航空公司臨櫃、官網或航空公司APP購票，不含旅行社、線上旅遊平台購票，且不包含機上免稅商品、機場商店、貴賓室、哩程數、套裝行程、及以哩程兌換機票之附加費用(如升等/行李/稅/其他費用)。",
+      "mcc": null,
+      "include": [
+        "中華航空",
+        "長榮航空",
+        "星宇航空",
+        "台灣虎航",
+        "國泰航空",
+        "樂桃航空",
+        "阿聯酋航空",
+        "酷航",
+        "捷星航空",
+        "日本航空",
+        "ANA全日空",
+        "亞洲航空",
+        "聯合航空",
+        "新加坡航空",
+        "越捷航空",
+        "大韓航空",
+        "達美航空",
+        "土耳其航空",
+        "卡達航空",
+        "法國航空"
+      ],
+      "exclude": [
+        "旅行社購票",
+        "線上旅遊平台購票",
+        "機上免稅商品",
+        "機場商店",
+        "貴賓室消費",
+        "哩程購買/轉讓",
+        "機票以外附加費(升等/行李/稅/其他)"
+      ],
+      "level_applicable": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "note": "須刷CUBE卡於航空公司官方通路購票方適用。",
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "benefit_rule",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": "趣旅行",
+      "channel_group": "指定飯店住宿",
+      "channel": "指定飯店住宿",
+      "rule_type": "restriction",
+      "rule_text": "國內飯店住宿與指定飯店集團，須於指定飯店臨櫃或官網刷卡訂房，不含透過旅行社預訂、機加酒/樂園套票、俱樂部、長租公寓(租期30天以上)、飯店所附設餐廳、美食街、代訂服務或精品商店等；並須符合住宿相關MCC(3500~3999、7011、7012、7032、7033)。",
+      "mcc": [
+        "3500-3999",
+        "7011",
+        "7012",
+        "7032",
+        "7033"
+      ],
+      "include": [
+        "國內飯店住宿(含民宿/青年旅館/連鎖飯店等符合MCC之訂房)",
+        "星野集團官網/臨櫃訂房",
+        "全球迪士尼飯店官網/臨櫃訂房",
+        "東橫INN 官網/臨櫃訂房"
+      ],
+      "exclude": [
+        "樂園套票",
+        "俱樂部",
+        "租期30天以上長租公寓",
+        "飯店/酒店/旅館附設餐廳",
+        "飯店美食街",
+        "代訂服務",
+        "飯店內精品商店",
+        "旅行社預訂飯店",
+        "機加酒/套裝行程"
+      ],
+      "level_applicable": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "note": "若MCC與實際業務不符致無法判斷，則不列入回饋。",
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "benefit_rule",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": "趣旅行",
+      "channel_group": "指定旅遊/訂房平台",
+      "channel": "旅遊/訂房平台",
+      "rule_type": "restriction",
+      "rule_text": "於KKday、Agoda、Klook、Airbnb、Booking.com、Trip.com等指定平台訂購旅遊商品，如採先訂後付/到店付款，飯店可能先進行預授權而非實際扣款，必須於實際信用卡扣款當日切換為趣旅行權益方案；Booking.com不包含租車、景點、活動、計程車等商品。",
+      "mcc": null,
+      "include": [
+        "KKday",
+        "Agoda",
+        "Klook",
+        "Airbnb",
+        "Booking.com",
+        "Trip.com"
+      ],
+      "exclude": [
+        "Booking.com 租車",
+        "Booking.com 景點/活動",
+        "Booking.com 計程車"
+      ],
+      "level_applicable": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "note": "若刷卡日未切換為趣旅行方案，該筆消費不適用趣旅行回饋。",
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "benefit_rule",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": "趣旅行",
+      "channel_group": "指定旅行社",
+      "channel": "國內旅行社",
+      "rule_type": "restriction",
+      "rule_text": "國內旅行社係指於指定國內旅行社直營門市以信用卡刷卡購買旅遊商品，不包含加盟店之消費。",
+      "mcc": null,
+      "include": [
+        "ezTravel易遊網直營",
+        "雄獅旅遊直營",
+        "可樂旅遊直營",
+        "東南旅遊直營",
+        "五福旅遊直營",
+        "燦星旅遊直營",
+        "山富旅遊直營",
+        "長汎假期直營",
+        "鳳凰旅行社直營",
+        "Ezfly易飛網直營",
+        "理想旅遊直營",
+        "永利旅行社直營",
+        "三賀旅行社直營"
+      ],
+      "exclude": [
+        "加盟店(如雄獅集團-旅天下各加盟店等)"
+      ],
+      "level_applicable": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "note": "實際直營與加盟資訊以各旅行社公告為準。",
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "benefit_rule",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": null,
+      "channel_group": "共通排除項目",
+      "channel": "共通排除與僅0.3%項目",
+      "rule_type": "exclusion",
+      "rule_text": "下列交易不列入任何CUBE卡權益方案之指定消費，部分交易僅享一般消費0.3%回饋：信用卡年費、違約金、利息、預借現金(含手續費)、各類稅款、公用事業費、部分保費、學雜費、各類罰鍰、電子票證加值、道路通行費儲值、第三方支付錢包儲值等。",
+      "mcc": null,
+      "include": [],
+      "exclude": [
+        "信用卡年費、違約金、循環利息及其他費用",
+        "預借現金及預借現金手續費",
+        "各級政府稅款(如所得稅、牌照稅、房屋稅等)",
+        "各類公用事業費用(水費、電費、瓦斯費等)",
+        "學雜費、考試報名費、各類罰鍰",
+        "部分保險費(保費代扣、部分壽險及產險保費等)",
+        "電子票證加值(如悠遊卡、一卡通、icash等)",
+        "高速公路eTag儲值及相關代收費用",
+        "第三方支付或電子支付錢包之儲值(如支付工具錢包儲值)",
+        "其他由本行公告不列入回饋之交易"
+      ],
+      "level_applicable": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "note": "實際排除項目及僅享一般消費0.3%回饋之交易，仍以國泰世華銀行最新公告及信用卡約定條款為準。",
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "benefit_rule",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": "玩數位",
+      "channel_group": "網購平台",
+      "channel": "小樹購",
+      "rule_type": "exclusion",
+      "rule_text": "小樹購實體商品消費可列入玩數位指定回饋；若同一訂單含有電子票券商品，整筆訂單僅回饋一般消費0.3%。",
+      "mcc": null,
+      "include": [
+        "小樹購實體商品"
+      ],
+      "exclude": [
+        "電子票券整筆訂單",
+        "含電子票券之混合訂單"
+      ],
+      "level_applicable": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "note": "建議將一般商品與電子票券分開購物車結帳，以保留指定消費回饋資格。",
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "benefit_rule",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": "樂饗購",
+      "channel_group": "國內外送平台",
+      "channel": "Uber Eats",
+      "rule_type": "exclusion",
+      "rule_text": "Uber Eats 訂餐外送服務列入樂饗購指定消費；Uber One 訂閱費不列入指定消費回饋。",
+      "mcc": null,
+      "include": [
+        "Uber Eats 外送訂餐"
+      ],
+      "exclude": [
+        "Uber One 訂閱方案"
+      ],
+      "level_applicable": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "note": "必須選定樂饗購方案才享有指定回饋。",
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "benefit_rule",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": "樂饗購",
+      "channel_group": "國內指定百貨",
+      "channel": "誠品生活",
+      "rule_type": "exclusion",
+      "rule_text": "誠品生活實體門市消費列入樂饗購指定回饋；誠品線上購物不列入指定回饋。",
+      "mcc": null,
+      "include": [
+        "誠品生活實體門市"
+      ],
+      "exclude": [
+        "誠品線上購物"
+      ],
+      "level_applicable": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "note": "以實體門市認列，不含百貨/商場內之誠品線上代收。",
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "benefit_rule",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": "樂饗購",
+      "channel_group": "國內藥妝",
+      "channel": "康是美",
+      "rule_type": "exclusion",
+      "rule_text": "康是美實體門市與官網 eShop 消費列入樂饗購指定回饋；黃金、儲值、票券及部分活動商品不列入回饋。",
+      "mcc": null,
+      "include": [
+        "康是美實體門市",
+        "康是美eShop"
+      ],
+      "exclude": [
+        "黃金商品",
+        "儲值商品",
+        "各類票券",
+        "百貨/商場內之康是美門市"
+      ],
+      "level_applicable": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "note": "需選定樂饗購方案；排除項目請依康是美與國泰公告為準。",
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "benefit_rule",
+      "card_name": "國泰CUBE卡",
+      "bank": "國泰世華銀行",
+      "scheme_name": "樂饗購",
+      "channel_group": "國內藥妝",
+      "channel": "屈臣氏",
+      "rule_type": "exclusion",
+      "rule_text": "屈臣氏實體門市、官方網路商店、屈臣氏App可列入樂饗購指定回饋；黃金、儲值、票券等排除。實體門市不含百貨、商場門市。",
+      "mcc": null,
+      "include": [
+        "屈臣氏實體門市",
+        "屈臣氏線上商店",
+        "屈臣氏APP消費"
+      ],
+      "exclude": [
+        "黃金商品",
+        "儲值商品",
+        "各類票券",
+        "百貨內的屈臣氏門市",
+        "購物中心/商場內之屈臣氏門市"
+      ],
+      "level_applicable": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "note": "須選定樂饗購方案；實際排除項目依屈臣氏與國泰公告為準。",
+      "source": "cube_benefits.md"
+    }
+  ],
+  "global_rule": [
+    {
+      "doc_type": "global_rule",
+      "rule_name": "權益分級",
+      "rule_text": "Level 1 指定消費2%，Level 2 指定消費3%，Level 3 指定消費3.3%，一般消費0.3%。",
+      "conditions": {
+        "L1": "持有 CUBE 正卡",
+        "L2": "持有 CUBE 正卡，且以本行帳戶設定自動扣繳或使用 CUBE App 繳納本人本行信用卡費",
+        "L3": "持有 CUBE 正卡，且為本行財富管理貴賓"
+      },
+      "valid_period": "2025/07/01-2025/12/31",
+      "note": "集精選方案於各等級回饋皆為2%。",
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "global_rule",
+      "rule_name": "權益適用期間與方案切換",
+      "rule_text": "CUBE卡權益如未另行敘明，適用期間為2025/7/1~2025/12/31。CUBE卡權益方案2025/12/31前享天天免費變更方案，每正卡人每日限變更一次，附卡適用方案依正卡持卡人設定為準。方案設定自當日零時起之消費即依當次變更後之方案計算回饋。",
+      "conditions": {
+        "change_limit": "每位正卡持卡人每日最多變更1次方案",
+        "effective_time": "以本行系統紀錄之日期為準，自當日零時起之消費依新方案計算回饋"
+      },
+      "valid_period": "2025/07/01-2025/12/31",
+      "note": null,
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "global_rule",
+      "rule_name": "一般消費與分期回饋",
+      "rule_text": "一般消費享0.3%小樹點(信用卡)回饋。自2024/2/1起於特約商店分期付款消費（含提前結清），僅適用一般消費0.3%回饋。",
+      "conditions": {},
+      "valid_period": null,
+      "note": null,
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "global_rule",
+      "rule_name": "回饋認定與跨境交易",
+      "rule_text": "消費回饋認定依本行系統為主。特約商店所在地登記為國外或交易/退款幣別非新臺幣者，須收取國外交易手續費，相關費用依信用卡約定條款第十六條國外交易授權結匯辦理。網頁以 tw 為網域名稱或於我國設有分公司者，並非當然屬於國內特約商店。",
+      "conditions": {},
+      "valid_period": null,
+      "note": "持卡人仍須自行留意是否為跨境交易。",
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "global_rule",
+      "rule_name": "小樹點與優惠券",
+      "rule_text": "小樹點(信用卡)價值為每1點等值新台幣1元，可折抵消費或兌換商品，各折抵/兌換通路使用規則依各活動網頁或合作商店公告為準。參加CUBE App優惠券活動需於活動期間登入並完成領取，回饋計算自領取日(含)後之新增消費起算。",
+      "conditions": {},
+      "valid_period": null,
+      "note": "CUBE卡點數回饋明細僅顯示權益方案回饋，不含其他活動或國泰優惠。",
+      "source": "cube_benefits.md"
+    },
+    [
+      {
+        "doc_type": "global_rule",
+        "rule_name": "權益等級與回饋對應",
+        "rule_text": "CUBE卡分為Level 1、Level 2、Level 3三級。玩數位、樂饗購、趣旅行方案之指定消費回饋為：L1=2%、L2=3%、L3=3.3%；集精選方案於各等級皆為2%。一般消費一律為0.3%。",
+        "conditions": {
+          "L1": "持有CUBE正卡",
+          "L2": "持有CUBE正卡，且以本行本人帳戶設定自動扣繳本人本行信用卡費，或使用CUBE App以本行本人帳戶繳納本人本行信用卡費，條件達成後次月起升級",
+          "L3": "持有CUBE正卡，且成為本行財富管理貴賓(往來資產達指定門檻)，資格生效次月起升級"
+        },
+        "valid_period": "2025/07/01-2025/12/31",
+        "note": "若未持續符合升級條件，次月起將依最近一次符合條件之等級調整為Level 1或Level 2；實際認定依銀行系統為準。",
+        "source": "cube_benefits.md"
+      },
+      {
+        "doc_type": "global_rule",
+        "rule_name": "權益等級生效與升降級時間點",
+        "rule_text": "持卡人於當月符合權益升級條件者，將於次月第一天起適用該等級之權益回饋；未持續符合條件時，自次月起自動調整為對應之等級。升級與降級皆以本行系統資料為準。",
+        "conditions": {
+          "upgrade_effective": "本月達成條件，次月第一天起生效，計算當月所有指定消費回饋",
+          "downgrade_effective": "本月未達條件，次月起降回上一等級或Level 1"
+        },
+        "valid_period": "2025/07/01-2025/12/31",
+        "note": "實際升降級日及適用期間可於CUBE App中查詢，若有疑義以銀行系統紀錄為準。",
+        "source": "cube_benefits.md"
+      },
+      {
+        "doc_type": "global_rule",
+        "rule_name": "指定消費金額上限",
+        "rule_text": "每一帳單週期內，持卡人可享有各權益方案指定消費加碼回饋之指定消費金額上限，為持卡人當月CUBE卡有效永久信用額度加計新臺幣500,000元；超過部分之消費僅享一般消費0.3%回饋。",
+        "conditions": {
+          "cap_formula": "加碼回饋適用之指定消費金額上限 = 當月有效永久額度 + NT$500,000",
+          "over_cap_treatment": "超出上限之指定消費，不再適用2%/3%/3.3%等級回饋，僅享一般消費0.3%回饋"
+        },
+        "valid_period": "2025/01/01-",
+        "note": "實際上限金額以每月帳單週期內之有效永久額度計算，若持卡人調整額度則上限亦隨之變動。",
+        "source": "cube_benefits.md"
+      },
+      {
+        "doc_type": "global_rule",
+        "rule_name": "分期付款回饋規則",
+        "rule_text": "自2024/2/1起，於CUBE卡各權益方案之指定特約商店辦理分期付款(含提前結清)之消費，均不列入各權益方案之指定消費加碼回饋計算，僅享一般消費0.3%小樹點(信用卡)回饋。",
+        "conditions": {
+          "installment_scope": "含店內分期、線上分期及提前結清分期餘額之交易",
+          "not_counted_as": "不計入玩數位、樂饗購、趣旅行、集精選等方案之指定消費"
+        },
+        "valid_period": "2024/02/01-",
+        "note": "辦理分期前之原始一般消費亦不追溯調整為指定消費回饋。",
+        "source": "cube_benefits.md"
+      },
+      {
+        "doc_type": "global_rule",
+        "rule_name": "CUBE優惠券領取與生效規則",
+        "rule_text": "參加CUBE卡優惠券加碼活動，須於活動期間內登入CUBE App之「CUBE優惠券專區」完成領取優惠券，方可享有加碼回饋。回饋計算僅適用於領取日(含)以後且於活動期間內之新增合格消費，逾期恕不補發。",
+        "conditions": {
+          "must_claim": "未於CUBE App完成領券者，即使於指定通路消費亦不享有優惠券加碼部分",
+          "effective_from": "自優惠券領取日(含當日)起之合格消費始列入優惠券加碼回饋",
+          "posting_deadline": "部分活動之加碼須於指定入帳截止日前入帳，逾期入帳之交易不享加碼"
+        },
+        "valid_period": null,
+        "note": "各優惠券活動之適用通路、回饋比例與名額限制依活動頁面公告為準。",
+        "source": "cube_benefits.md"
+      },
+      {
+        "doc_type": "global_rule",
+        "rule_name": "小樹點價值與入帳時間",
+        "rule_text": "小樹點(信用卡)為CUBE卡專屬回饋點數，每1點等同新臺幣1元，可用於折抵信用卡消費或兌換商品/票券等。一般及指定消費回饋之小樹點，於消費請款入帳後約次二個營業日內入帳；折抵金或部分活動之點數，則於消費請款入帳後約次三日內折抵或入帳。",
+        "conditions": {
+          "point_value": "1點小樹點(信用卡) = NT$1",
+          "normal_posting": "一般/指定消費回饋點數：請款入帳後約T+2營業日入帳",
+          "rebate_posting": "折抵金或活動回饋：請款入帳後約T+3日入帳或折抵交易金額"
+        },
+        "valid_period": null,
+        "note": "實際入帳時間可能依商店請款日及系統作業日略有差異，請以帳單或CUBE App顯示為準。",
+        "source": "cube_benefits.md"
+      },
+      {
+        "doc_type": "global_rule",
+        "rule_name": "權益方案切換與生效日",
+        "rule_text": "CUBE卡權益方案於2025/12/31前享天天免費變更，每正卡持卡人每日限變更一次。方案設定以本行系統紀錄之日期為準，自當日零時起之所有合格消費，均依當次最後一次變更後之方案計算回饋。",
+        "conditions": {
+          "change_limit_per_day": "每位正卡持卡人每日最多可變更方案1次",
+          "effective_from_midnight": "於任一日變更方案後，該日零時起之所有消費均依新方案計算回饋",
+          "supplementary_card": "附卡適用方案以正卡持卡人設定為準"
+        },
+        "valid_period": "2025/07/01-2025/12/31",
+        "note": "若同日內多次嘗試變更方案，僅以銀行系統紀錄成功之最後一次設定為準。",
+        "source": "cube_benefits.md"
+      }
+    ],
+    {
+      "doc_type": "global_rule",
+      "rule_name": "權益適用對象",
+      "rule_text": "CUBE卡權益主要適用於正卡持卡人；附卡持卡人適用之權益方案、回饋比例與設定，均以正卡持卡人於CUBE App設定之方案為準。",
+      "conditions": {
+        "primary_card": "正卡持卡人可於CUBE App選擇權益方案，並享有升級資格與回饋基礎。",
+        "supplementary_card": "附卡自動套用正卡持卡人設定，不可獨立選擇方案。"
+      },
+      "valid_period": "2025/07/01-2025/12/31",
+      "note": "部分活動可能限定正卡持卡人，不提供給附卡；依活動公告為準。",
+      "source": "cube_benefits.md"
+    },
+    {
+      "doc_type": "global_rule",
+      "rule_name": "系統異常與活動調整",
+      "rule_text": "當因網路、系統或其他不可抗力因素導致交易紀錄、權益設定、回饋計算等出現延遲、錯誤或遺失時，國泰世華銀行不負擔賠償責任。銀行保留修改、變更、停止或終止活動之權利，並以最新公告為準。",
+      "conditions": {
+        "system_failure": "若因系統或網路異常致資料延遲或錯誤，回饋以銀行最終入帳結果為準。",
+        "bank_rights": "銀行得隨時調整活動內容，並於網站或CUBE App公告後生效。"
+      },
+      "valid_period": null,
+      "note": "建議持卡人以CUBE App查詢最新權益方案與回饋結果。",
+      "source": "cube_benefits.md"
+    }
+  ],
+  "credit_card_profile": [
+    {
+      "doc_type": "credit_card_profile",
+      "card_name": "國泰CUBE卡",
+      "issuer": "國泰世華銀行",
+      "card_family": "一般回饋卡",
+      "positioning": "彈性切換權益方案、適合日常生活通路多元的消費者。",
+      "reward_type": "點數回饋",
+      "reward_unit": "小樹點(信用卡)",
+      "base_reward": "一般消費0.3%小樹點回饋（無上限）；指定方案享2%~3.3%。",
+      "annual_fee": "正卡年費 NT$1,800",
+      "annual_fee_waiver": "首年免年費；次年符合任一條件可免年費：1) 申辦電子帳單；2) 前一年正卡消費滿12次；3) 歸戶正附卡累積年消費滿 NT$180,000。",
+      "interest_and_fees": {
+        "revolving_rate": "6.75%~15%",
+        "cash_advance_fee": "預借現金金額 × 3% + NT$150 / USD 5"
+      },
+      "income_requirement": "成年人且年收入達 NT$200,000 可申請正卡。",
+      "apply_difficulty": "低",
+      "supp_card_info": "附卡申請人須為正卡持卡人之父母、兄弟姊妹、配偶、配偶父母或年滿15歲子女；未成年人申請需法定代理人共同簽名。",
+      "target_users": [
+        "社會新鮮人",
+        "多通路消費族群",
+        "想要自由切換回饋方案的族群"
+      ],
+      "best_for": [
+        "日常生活綜合消費",
+        "搭配權益方案提升回饋"
+      ],
+      "source": "補充資料.txt"
+    }
+  ],
+  "welcome_offers": [
+    {
+      "doc_type": "welcome_offer",
+      "card_name": "國泰CUBE卡",
+      "offer_name": "新戶首刷禮最高500點小樹點(信用卡)",
+      "valid_period": "2025/10/01-2025/12/31",
+      "tasks": [
+        {
+          "task_name": "任務一",
+          "description": "30天內刷1筆 NT$888(含)以上，並成功申辦電子帳單。",
+          "reward": "100點小樹點"
+        },
+        {
+          "task_name": "任務二",
+          "description": "30天內「未計入方案指定消費回饋」之累積消費金額 達 NT$10,000 (含)以上。",
+          "reward": "100點小樹點"
+        },
+        {
+          "task_name": "任務三",
+          "description": "30天內完成任一筆指定通路消費（依官方活動指定）。",
+          "reward": "100點小樹點"
+        },
+        {
+          "task_name": "任務四",
+          "description": "90天內申辦任一筆刷卡樂分期（單筆消費分期）或帳單分期，需為付費分期。",
+          "reward": "200點小樹點"
+        }
+      ],
+      "max_reward": "500點小樹點(信用卡)",
+      "note": "活動有條件限制，詳情請見國泰世華銀行官方網站。謹慎理財，信用無價。",
+      "source": "補充資料.txt"
+    }
+  ],
+  "_meta": {
+    "source_files": {
+      "cube_benefits_md": "cube_benefits.md"
+    }
+  }
+}
