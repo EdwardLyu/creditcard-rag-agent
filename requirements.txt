@@ -19,6 +19,9 @@ numpy
 # --- Agent Server 需要 ---
 aiofiles
 anyio
+langchain_community
+faiss-cpu
+pandas
 
 # --- 資料庫連線 (PostgreSQL 目前沒有用到) ---
 # psycopg2-binary>=2.9.0
