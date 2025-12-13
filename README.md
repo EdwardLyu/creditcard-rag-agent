@@ -19,6 +19,7 @@
 - **`agent_client.py`**: Client 端主程式。負責接收使用者輸入、決策分派任務 (Router)，並整合各 Agent 的回覆。
 - **`agent_product.py`**: Server 端 - 產品專家 Agent。負責回答單一卡片的客觀資訊 (如年費、權益)。
 - **`agent_comparing.py`**: Server 端 - 比較與推薦專家 Agent。負責多卡比較與個人化推薦。
+- **`agent_demand.py`**: Server 端 - 需求分析專家 Agent。負責從使用者口語對話中提取背景資訊（年齡、職業、年收、消費習慣）。
 - **`connect_database.py`**: 資料庫連線模組 (供各 Agent 使用，目前沒有用到)。
 - **`build_rag_index.py`**: 將 credit_rag.jsonl 轉換成 credit_rag_embedding.jsonl。
 - **`rag_search.py`**: 向量查詢方式
@@ -63,6 +64,11 @@ python agent_product.py --local
 
 ```bash
 python agent_comparing.py --local
+```
+4. **測試 agent_demand.py**
+
+```bash
+python agent_demand.py --local
 ```
 
 ## 🚀 補充資訊（想到什麼補什麼）
