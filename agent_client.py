@@ -60,6 +60,10 @@ ADVISOR_SERVER_PARAMS = StdioServerParameters(
 DEMAND_SERVER_PARAMS = StdioServerParameters(
     command="python", args=["agent_demand.py"], env=os.environ.copy()
 )
+# D. 申辦資格 Agent
+ELIGIBILITY_SERVER_PARAMS = StdioServerParameters(
+    command="python", args=["eligibility_agent.py"], env=os.environ.copy()
+)
 
 # ==========================================
 # 3. 定義 Tool Schemas
@@ -120,7 +124,30 @@ tool_schemas = [
                 "required": ["user_input"]
             }
         }
+    },
+        {
+        "type": "function",
+        "function": {
+            "name": "eligibility_agent",
+            "description": "【申辦資格 / 適格性】判斷使用者是否符合某張卡的申辦門檻/財力條件/學生或新鮮人限制等，並說明原因與需要補什麼資料。",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "user_query": {
+                        "type": "string",
+                        "description": "使用者的完整原始問題（例如：『我月薪 4 萬可以辦 CUBE 嗎？』）"
+                    },
+                    "user_profile": {
+                        "type": "string",
+                        "description": "使用者背景資訊 JSON 字串（若 demand_agent 已分析出來可提供；未知可不填）"
+                    }
+                },
+                "required": ["user_query"]
+            }
+        }
     }
+
+    
 ]
 
 # ==========================================
@@ -142,6 +169,7 @@ SYSTEM_PROMPT = """
 1. **demand_agent**: 分析使用者背景 (年齡/職業/收入)。
 2. **comparing_agent**: 推薦卡片。需提供 `user_profile`。
 3. **product_agent**: 查詢單一卡片資訊。
+4. **eligibility_agent: 判斷申辦門檻/資格與缺少資料
 
 # 標準作業流程 (SOP)
 
@@ -190,14 +218,19 @@ async def chat() -> None:
             sess_dem = await stack.enter_async_context(ClientSession(r_dem, w_dem))
             await sess_dem.initialize()
             print("✅ [System] Demand Agent 已連線")
-
+             # 4. Eligibility Agent
+            r_eli, w_eli = await stack.enter_async_context(stdio_client(ELIGIBILITY_SERVER_PARAMS))
+            sess_eli = await stack.enter_async_context(ClientSession(r_eli, w_eli))
+            await sess_eli.initialize()
+            print("✅ [System] Eligibility Agent 已連線")
             print("🚀 系統準備就緒！(輸入 'q' 離開)")
 
             # --- B. 建立路由對照表 ---
             SESSION_MAP = {
                 "product_agent": sess_prod,
                 "comparing_agent": sess_adv,
-                "demand_agent": sess_dem
+                "demand_agent": sess_dem,
+                "eligibility_agent": sess_eli
             }
 
             # --- C. 對話主迴圈 (User Loop) ---
