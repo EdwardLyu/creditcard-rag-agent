@@ -65,16 +65,18 @@ async def tool_search_bank_info(query: str, card_filter: str = None) -> str:
     這是 Agent 唯一獲取外部知識的管道。
     """
     print(f"    🔎 [RAG Search] 搜尋: {query} | 過濾卡片: {card_filter}", file=sys.stderr)
-    
+    metadata = {
+         "card_name": card_filter
+    }
+   
     # [關鍵優化]
     # search_chunks 內部會執行 Embedding 運算 (CPU/GPU 密集)
     # 必須使用 asyncio.to_thread 放到背景執行，否則會卡死整個 Agent
     try:
-        results = await asyncio.to_thread(
-            search_chunks, 
+        results = search_chunks(
             query=query, 
-            card_filter=card_filter, 
-            top_k=5  # 取前 5 筆最相關
+            top_k=5,  # 取前 5 筆最相關
+            metadata_filter = metadata
         )
         
         if not results:

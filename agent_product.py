@@ -2,11 +2,12 @@ import os
 import sys
 import json
 import asyncio
+
 from rag_search import search_chunks
 from mcp.server.fastmcp import FastMCP
 from dotenv import load_dotenv
 from openai import OpenAI  # ✅ 改成使用 OpenAI client（指向 Gemini 相容端點）
-from rag_search import search_chunks 
+
 
 # 1. 初始化環境
 from pathlib import Path
@@ -50,20 +51,6 @@ async def tool_rag_search_product(
         file=sys.stderr
     )
 
-    # 🔎 根據問題內容，調整查詢策略
-    # 如果是在問「回饋 / 權益 / 通路」，優先抓 benefit_scheme，top_k 開大一點
-    lower_q = user_query.lower()
-    is_benefit_query = any(
-        kw in user_query for kw in ["回饋", "權益", "通路", "方案"]
-    )
-
-    if is_benefit_query:
-        effective_top_k = max(top_k, 20)
-        doc_type = "benefit_scheme"
-    else:
-        effective_top_k = top_k
-        doc_type = None
-        
     my_metadata = {
     "card_name": card_name,
     "doc_type": doc_type

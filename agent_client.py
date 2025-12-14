@@ -168,7 +168,7 @@ SYSTEM_PROMPT = """
 # 專家 Agent 介紹
 1. **demand_agent**: 分析使用者背景 (年齡/職業/收入)。
 2. **comparing_agent**: 推薦卡片。需提供 `user_profile`。
-3. **product_agent**: 查詢單一卡片資訊。
+3. **product_agent**: 查詢卡片回饋資訊。
 4. **eligibility_agent: 判斷申辦門檻/資格與缺少資料
 
 # 標準作業流程 (SOP)
