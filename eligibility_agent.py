@@ -6,29 +6,26 @@ import asyncio
 from pathlib import Path
 
 from mcp.server.fastmcp import FastMCP
-from dotenv import load_dotenv
 from openai import OpenAI
+from rag_search import search_chunks
 import logging   
+from dotenv import load_dotenv
 
-# ===== 關閉第三方模型的 INFO log=====
-logging.getLogger("sentence_transformers").setLevel(logging.ERROR)
-logging.getLogger("transformers").setLevel(logging.ERROR)
-logging.getLogger("torch").setLevel(logging.ERROR)
-# ==========================================================
+# === 讀取 Gemini 設定（取代原本 Azure OpenAI） ===
+# 1. 初始化環境
+from pathlib import Path
 
-# ==========================================
-# 1. 初始化環境與設定
-# ==========================================
-DATA_PATH = Path(__file__).parent / "cards_rag_embedded.jsonl"
+# 在這個檔案所在的資料夾，往上找 .env
 env_path = Path(__file__).parent / ".env"
 load_dotenv(dotenv_path=env_path)
 
+# === 讀取 Gemini 設定（取代原本 Azure OpenAI） ===
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 GEMINI_BASE_URL = os.getenv(
     "GEMINI_BASE_URL",
     "https://generativelanguage.googleapis.com/v1beta/openai/"
 )
-GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash-exp")
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
 
 try:
     llm_client = OpenAI(
@@ -38,86 +35,50 @@ try:
 except Exception as e:
     print(f"❌ Gemini Client 初始化失敗: {e}", file=sys.stderr)
     llm_client = None
-
+    
 mcp = FastMCP("eligibility-agent")
+
 
 # ==========================================
 # 2. 輕量版：五張卡的申辦規則表
 #   
 # ==========================================
 
-try:
-    from rag_search import search_chunks, load_index
-    load_index()  # ，先載入向量庫
-
-    
-except ImportError:
-    print("❌ 找不到 rag_search.py，請確認檔案位置。", file=sys.stderr)
-    sys.exit(1)
-def list_cards_from_rag() -> list[str]:
-    """
-    掃描 cards_rag_embedded.jsonl，找出所有出現過的卡片名稱（card_name），去重後回傳列表。
-    若檔案不存在，回傳空列表。
-    """
-    card_names: set[str] = set()
-
-    if not DATA_PATH.exists():
-        print(f"⚠️ 找不到 {DATA_PATH}，無法從 RAG 掃描卡片名稱。", file=sys.stderr)
-        return []
-
-    with DATA_PATH.open("r", encoding="utf-8") as f:
-        for line in f:
-            line = line.strip()
-            if not line:
-                continue
-            try:
-                obj = json.loads(line)
-            except json.JSONDecodeError:
-                continue
-
-            name = obj.get("card_name")
-            if isinstance(name, str) and name.strip():
-                card_names.add(name.strip())
-
-    return sorted(card_names)
-    
-DEFAULT_CARD_NAMES = list_cards_from_rag()
-
-
-
-async def _check_single_card_llm(user: dict, card_name: str) -> dict:
+async def tool_check_eligibility(user_profile_json: str) -> dict:
     """
     使用 LLM + RAG 內容判斷 eligibility。
     ✅ 不再強制 LLM 輸出 JSON，因此不會再出現「無法解析」。
     """
-
+    user = json.loads(user_profile_json)
+    
+    metadata = {
+         "doc_type": "credit_card_profile"
+    }
+    
     # 1) 從 RAG 搜尋該卡片相關內容
     try:
-        rag_results = await asyncio.to_thread(
-            search_chunks,
-            query=card_name,
-            card_filter=card_name,
-            top_k=5,
+        rag_results = search_chunks(
+            query="信用卡申辦資格條件",
+            metadata_filter=metadata,
+            top_k=20
         )
     except Exception as e:
         rag_results = []
-        print(f"⚠️ RAG 搜尋失敗（{card_name}）：{e}", file=sys.stderr)
-
+    print(rag_results)
     # 2) 讓 LLM 根據 RAG 內容做 eligibility 推論（用自然語言即可）
     prompt = f"""
-你是一位信用卡申辦資格分析專家。
+你是一位信用卡申辦資格分析專家。請你根據數張信用卡的申辦資訊判斷使用
 
 使用者資料（JSON）：
 {json.dumps(user, ensure_ascii=False)}
 
-卡片名稱：{card_name}
 
 以下是從 RAG 搜尋到的卡片內容（可能包含回饋、優惠、條款、資格等）：
 {json.dumps(rag_results, ensure_ascii=False)}
 
-請用繁體中文回答：
-1) 這張卡對申請人的年齡/收入/學生身分是否有明確門檻？（若沒有寫就說「資料不足」）
-2) 以此使用者條件，給「建議申辦 / 不建議 / 資訊不足」其一
+請用繁體中文回答每張卡片：
+1) 申請人的年齡/收入/學生身分是否有達到明確門檻？（若沒有寫就說「資料不足」）
+2) 以此使用者條件，給與每張卡「建議申辦 / 不建議 / 資訊不足」其一
 3) 2～4 點條列理由
 
 直接輸出文字，不要 JSON。
@@ -131,31 +92,9 @@ async def _check_single_card_llm(user: dict, card_name: str) -> dict:
     explanation = (resp.choices[0].message.content or "").strip()
 
     # 3) 我們自己包成 dict 回去（避免解析）
-    return {
-        "card_name": card_name,
-        "status": "LLM_推論",
-        "reasons": [explanation] if explanation else ["資料不足，無法判斷。"],
-        "rule_notes": "由 LLM 根據 RAG 內容推論（未硬編碼規則）。",
-    }
+    return explanation 
 
-async def tool_check_eligibility(user_profile_json: str, card_names: list[str] | None = None) -> str:
-    """
-    工具：根據 user_profile + 卡片清單，回傳每張卡的申辦資格判斷結果。
-    """
-    try:
-        user = json.loads(user_profile_json)
-    except Exception as e:
-        return json.dumps({"error": f"user_profile_json 解析失敗: {e}"}, ensure_ascii=False)
 
-    if not isinstance(user, dict):
-        return json.dumps({"error": "user_profile_json 必須是一個 JSON 物件"}, ensure_ascii=False)
-
-    names = card_names or DEFAULT_CARD_NAMES
-    results = []
-    for name in names:
-        results.append(await _check_single_card_llm(user, name))
-
-    return json.dumps(results, ensure_ascii=False)
 # ==========================================
 # 3. 工具 Schema 與 System Prompt
 # ==========================================
@@ -172,11 +111,6 @@ INTERNAL_TOOLS_SCHEMA = [
                     "user_profile_json": {
                         "type": "string",
                         "description": "使用者資料的 JSON 字串，例如 {\"age\":23,\"annual_income\":450000,\"is_student\":false}"
-                    },
-                    "card_names": {
-                        "type": "array",
-                        "items": {"type": "string"},
-                        "description": "要檢查的卡片名稱列表，若省略則預設為系統內建的五張卡。"
                     }
                 },
                 "required": ["user_profile_json"]
@@ -213,8 +147,6 @@ ELIGIBILITY_SYSTEM_PROMPT = """
 # ==========================================
 
 async def _generate_response(user_query: str, user_profile: str = "") -> str:
-    if not llm_client:
-        return "❌ 系統錯誤：LLM client 未初始化"
 
     messages = [
         {"role": "system", "content": ELIGIBILITY_SYSTEM_PROMPT},

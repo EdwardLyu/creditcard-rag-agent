@@ -2,10 +2,12 @@ import os
 import sys
 import json
 import asyncio
+
 from rag_search import search_chunks
 from mcp.server.fastmcp import FastMCP
 from dotenv import load_dotenv
 from openai import OpenAI  # ✅ 改成使用 OpenAI client（指向 Gemini 相容端點）
+
 
 # 1. 初始化環境
 from pathlib import Path
@@ -49,43 +51,20 @@ async def tool_rag_search_product(
         file=sys.stderr
     )
 
-    # 🔎 根據問題內容，調整查詢策略
-    # 如果是在問「回饋 / 權益 / 通路」，優先抓 benefit_scheme，top_k 開大一點
-    lower_q = user_query.lower()
-    is_benefit_query = any(
-        kw in user_query for kw in ["回饋", "權益", "通路", "方案"]
-    )
-
-    if is_benefit_query:
-        effective_top_k = max(top_k, 20)
-        doc_type = "benefit_scheme"
-    else:
-        effective_top_k = top_k
-        doc_type = None
-
-    from rag_search import search_chunks  # 確保用的是你現在有 card_filter 的版本
+    my_metadata = {
+    "card_name": card_name,
+    "doc_type": doc_type
+}
+     # 確保用的是你現在有 card_filter 的版本
 
     results = search_chunks(
         query=user_query,
         top_k=effective_top_k,
-        card_filter=card_name,
-        doc_type=doc_type,
+        metadata_filter=my_metadata
     )
 
-    # 為了讓 LLM 好用一點，我們整理成瘦身版 JSON 給它
-    payload = []
-    for ch in results:
-        payload.append({
-            "id": ch.get("id"),
-            "card_name": ch.get("card_name"),
-            "doc_type": ch.get("doc_type"),
-            "scheme_name": ch.get("scheme_name"),
-            "rule_type": ch.get("rule_type"),
-            "reward_type": ch.get("metadata", {}).get("reward_type"),
-            "text": ch.get("text"),
-        })
-
-    return json.dumps({"results": payload}, ensure_ascii=False)
+    print(results)
+    return results 
 
 
 async def tool_calculate_installment(amount: int, months: int) -> str:
@@ -120,7 +99,7 @@ INTERNAL_TOOLS_SCHEMA = [
                     },
                     "card_name": {
                         "type": "string",
-                        "description": "若已知要查的卡片名稱就填，否則可留空",
+                        "description": "若已知要查的卡片名稱就填，否則可留空，可能的卡片名稱有：國泰CUBE卡, 國泰世華世界卡, 國泰蝦皮購物聯名卡及國泰亞洲萬里通聯名卡四個可能",
                         "nullable": True
                     },
                     "top_k": {
@@ -181,7 +160,7 @@ async def _generate_response(user_query: str) -> str:
 
     messages = [
         {"role": "system", "content": PRODUCT_SYSTEM_PROMPT},
-        {"role": "user", "content": user_query}
+        {"role": "user", "content": user_query + "我是國泰cube卡的二級用戶"}
     ]
 
     MAX_TURNS = 5

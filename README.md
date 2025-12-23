@@ -70,6 +70,7 @@ python agent_comparing.py --local
 ```bash
 python agent_demand.py --local
 ```
+python eligibility_agent.py --local
 
 ## 🚀 補充資訊（想到什麼補什麼）
 

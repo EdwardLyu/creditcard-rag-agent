@@ -1,4 +1,4 @@
-# comparing_agent.py
+# agent_comparing.py
 import os
 import sys
 import json
@@ -10,7 +10,7 @@ from mcp.server.fastmcp import FastMCP
 from dotenv import load_dotenv
 from openai import OpenAI
 
-# === 導入你的 RAG 搜尋模組 ===
+# === [重要] 導入你的 RAG 搜尋工具 ===
 # 確保 rag_search.py, llm_utils.py 和 cards_rag_embedded.jsonl 在同一目錄下
 try:
     from rag_search import search_chunks, load_index
@@ -43,15 +43,16 @@ except Exception as e:
     print(f"❌ Gemini Client 初始化失敗: {e}", file=sys.stderr)
     llm_client = None
 
-# 預先載入 RAG 資料庫 (加速第一次搜尋)
-print("📚 正在初始化 RAG 知識庫 (載入 jsonl 與 embedding 模型)...", file=sys.stderr)
+# [重要] 預先載入 RAG 資料庫
+# 這會觸發 llm_utils 載入 Embedding 模型 (BGE-M3)，確保後續搜尋速度
+print("📚 正在初始化 RAG 知識庫...", file=sys.stderr)
 try:
-    # 這會觸發 llm_utils 載入 BGE-M3 模型，第一次會比較久
     load_index()
     print("✅ RAG 知識庫載入完成！", file=sys.stderr)
 except Exception as e:
     print(f"❌ RAG 載入失敗: {e}", file=sys.stderr)
 
+# 建立 MCP Server
 mcp = FastMCP("comparing-expert-agent")
 
 # ==========================================
@@ -61,23 +62,27 @@ mcp = FastMCP("comparing-expert-agent")
 async def tool_search_bank_info(query: str, card_filter: str = None) -> str:
     """
     搜尋銀行產品、權益或信用卡相關資訊。
+    這是 Agent 唯一獲取外部知識的管道。
     """
     print(f"    🔎 [RAG Search] 搜尋: {query} | 過濾卡片: {card_filter}", file=sys.stderr)
-    
-    # search_chunks 內部會呼叫 llm_utils.query_ai_embedding (CPU 密集運算)
-    # 使用 to_thread 把它丟到背景執行，避免卡住 async 事件迴圈
+    metadata = {
+         "card_name": card_filter
+    }
+   
+    # [關鍵優化]
+    # search_chunks 內部會執行 Embedding 運算 (CPU/GPU 密集)
+    # 必須使用 asyncio.to_thread 放到背景執行，否則會卡死整個 Agent
     try:
-        results = await asyncio.to_thread(
-            search_chunks, 
+        results = search_chunks(
             query=query, 
-            card_filter=card_filter, 
-            top_k=5  # 取前 5 筆最相關
+            top_k=5,  # 取前 5 筆最相關
+            metadata_filter = metadata
         )
         
         if not results:
-            return json.dumps({"result": "查無相關資料，請嘗試換個關鍵字。"})
+            return json.dumps({"result": "查無相關資料，請嘗試更換關鍵字。"})
 
-        # 整理回傳結果，節省 token 並讓 LLM 好讀
+        # 整理回傳結果 (精簡化以節省 Token)
         simplified_results = []
         for r in results:
             simplified_results.append({
@@ -102,17 +107,17 @@ INTERNAL_TOOLS_SCHEMA = [
         "type": "function",
         "function": {
             "name": "tool_search_bank_info",
-            "description": "搜尋信用卡權益、回饋規則、年費等銀行產品資訊。當使用者詢問具體卡片細節時必須使用。",
+            "description": "搜尋信用卡權益、回饋規則、年費等資訊。回答使用者關於產品的具體問題時必須使用。",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "query": {
                         "type": "string",
-                        "description": "搜尋關鍵字或問題，例如 'CUBE卡日本回饋' 或 '世界卡年費'"
+                        "description": "搜尋關鍵字，例如 'CUBE卡日本回饋' 或 '世界卡年費'"
                     },
                     "card_filter": {
                         "type": "string",
-                        "description": "若問題明確針對某張卡，可填入卡片名稱以過濾雜訊 (如 'CUBE卡')"
+                        "description": "若問題明確針對某張卡，可填入卡片名稱以精準過濾 (如 'CUBE卡')"
                     }
                 },
                 "required": ["query"]
@@ -123,16 +128,16 @@ INTERNAL_TOOLS_SCHEMA = [
 
 COMPARING_SYSTEM_PROMPT = """
 你是國泰世華銀行的「資深信用卡產品顧問」。
-你的資料來源是內部的 RAG 知識庫，請根據搜尋結果來回答使用者。
+你的知識來源是內部的 RAG 資料庫，除此之外你不知道其他即時資訊。
 
 ### 回答原則：
-1. **證據說話**：使用者問具體權益（如回饋率、年費、規則）時，**必須**使用 `tool_search_bank_info` 查詢。
-2. **誠實告知**：如果搜尋結果沒有提到，就說「資料庫中目前沒有相關資訊」，不要憑空捏造。
-3. **友善專業**：回答時請整理重點（條列式），語氣親切。
-4. **比較情境**：若使用者要比較兩張卡（如 A卡 vs B卡），請分別搜尋這兩張卡的資料，再綜合回答。
+1. **依據事實**：當使用者詢問權益、數字、規則時，**必須**使用 `tool_search_bank_info` 查詢。
+2. **誠實告知**：如果搜尋結果中沒有資料，請直接說「資料庫中目前沒有相關資訊」，不要編造。
+3. **結構化回答**：請消化搜尋到的內容，用條列式或表格整理給使用者，不要只貼原文。
+4. **比較情境**：若使用者問「A卡跟B卡哪個好？」，請分別搜尋兩張卡的資料，再進行綜合比較。
 
 ### 思考流程：
-- 收到問題 -> 判斷關鍵字 -> 呼叫搜尋工具 -> 閱讀搜尋結果 -> 整理並回答。
+- 收到問題 -> 分析關鍵字 -> 呼叫搜尋工具 -> 閱讀結果 -> 整理並回答。
 """
 
 # ==========================================
@@ -144,9 +149,13 @@ async def _generate_response(user_query: str, user_profile: str = "") -> str:
         return "❌ 系統錯誤：LLM client 未初始化"
 
     # 建構對話歷史
+    full_query = user_query
+    if user_profile:
+        full_query = f"使用者背景：{user_profile}\n使用者問題：{user_query}"
+
     messages = [
         {"role": "system", "content": COMPARING_SYSTEM_PROMPT},
-        {"role": "user", "content": f"使用者背景：{user_profile}\n使用者問題：{user_query}" if user_profile else user_query}
+        {"role": "user", "content": full_query}
     ]
 
     MAX_TURNS = 5
@@ -190,13 +199,13 @@ async def _generate_response(user_query: str, user_profile: str = "") -> str:
                     "content": tool_result
                 })
 
-        return "⚠️ 超過思考次數上限，無法取得完整資訊。"
+        return "⚠️ 抱歉，我思考太久了，無法提供完整答案。"
 
     except Exception as e:
         return f"❌ Agent 執行發生錯誤: {e}"
 
 # ==========================================
-# 5. MCP Tool Entry
+# 5. MCP Tool Entry & Local Test
 # ==========================================
 
 @mcp.tool()
@@ -205,19 +214,14 @@ async def comparing_agent(user_query: str, user_profile: str = "") -> str:
     print(f"⚖️ [Comparing Agent] 收到請求 | Query={user_query}", file=sys.stderr)
     return await _generate_response(user_query, user_profile)
 
-# ==========================================
-# Local 測試 Loop
-# ==========================================
-
 async def local_chat_loop():
     print("\n⚖️ --- Comparing Agent Local Mode (RAG Enabled) ---")
-    print("輸入 'q' 離開")
+    print("提示：輸入 'q' 離開")
     
-    # 測試環境檢查
     if not os.path.exists("cards_rag_embedded.jsonl"):
         print("⚠️ 警告：找不到 cards_rag_embedded.jsonl，搜尋功能將失效。")
 
-    profile = input("設定 user_profile (可留空): ").strip()
+    profile = input("設定 user_profile (例如 '學生', '常出國', 可留空): ").strip()
 
     while True:
         user_input = input("\n👤 User: ").strip()
@@ -230,9 +234,11 @@ async def local_chat_loop():
     print("Bye!")
 
 if __name__ == "__main__":
+    # 支援 Windows 的 asyncio loop 策略
+    if sys.platform.startswith("win"):
+        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+
     if "--local" in sys.argv:
-        if sys.platform.startswith("win"):
-            asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
         asyncio.run(local_chat_loop())
     else:
         print("⚖️ Comparing Agent Server starting...", file=sys.stderr)

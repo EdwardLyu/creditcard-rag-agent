@@ -1,106 +1,130 @@
-# rag_search.py
 import json
-import math
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 
-from llm_utils import query_ai_embedding
+# --- 1. LangChain / BGE 相關套件 ---
+from langchain_community.embeddings import HuggingFaceBgeEmbeddings
+from langchain_community.vectorstores import FAISS
 
-INDEX_PATH = "cards_rag_embedded.jsonl"
+# --- 2. 設定與路徑 ---
+FAISS_INDEX_PATH = "cards_rag_faiss_index" # 假設 FAISS 索引已存在並預先建立
+BGE_MODEL_NAME = "BAAI/bge-m3"
 
-# 開機時讀進記憶體
-_cards_index: List[Dict[str, Any]] = []
+# --- 3. 全域變數 ---
+_faiss_db: Optional[FAISS] = None
+# 固定 top_k = 5
+DEFAULT_TOP_K = 5 
+
+# --- 4. 初始化 Embedding 模型 ---
+_embeddings_model: HuggingFaceBgeEmbeddings = HuggingFaceBgeEmbeddings(
+    model_name=BGE_MODEL_NAME,
+    model_kwargs={"device": "cpu"},
+    encode_kwargs={"normalize_embeddings": True},
+)
 
 
 def load_index():
-    """載入 RAG index 到記憶體，只做一次"""
-    global _cards_index
-    if _cards_index:
+    """載入 RAG index 到記憶體，只做一次 (使用 FAISS 向量庫)"""
+    global _faiss_db
+    if _faiss_db is not None:
         return
 
-    with open(INDEX_PATH, "r", encoding="utf-8") as f:
-        for line in f:
-            line = line.strip()
-            if not line:
-                continue
-            obj = json.loads(line)
-            # 確保有 embedding
-            if "embedding" in obj and obj["embedding"]:
-                # 這裡 embedding 保持 list[float] 就好
-                _cards_index.append(obj)
-    print(f"✅ RAG index loaded, total chunks = {len(_cards_index)}")
+    try:
+        # 載入預先建立好的 FAISS 索引和資料
+        _faiss_db = FAISS.load_local(
+            folder_path=FAISS_INDEX_PATH, 
+            embeddings=_embeddings_model, 
+            allow_dangerous_deserialization=True
+        )
+        print(f"✅ RAG FAISS index loaded from {FAISS_INDEX_PATH}")
 
-
-def _cosine(a: List[float], b: List[float]) -> float:
-    """超簡單版本的 cosine similarity"""
-    if not a or not b or len(a) != len(b):
-        return 0.0
-    dot = sum(x * y for x, y in zip(a, b))
-    norm_a = math.sqrt(sum(x * x for x in a))
-    norm_b = math.sqrt(sum(y * y for y in b))
-    if norm_a == 0 or norm_b == 0:
-        return 0.0
-    return dot / (norm_a * norm_b)
+    except Exception as e:
+        print(f"❌ 載入 FAISS 索引失敗，請確保 '{FAISS_INDEX_PATH}' 存在並包含有效索引。錯誤: {e}")
+        _faiss_db = None
 
 
 def search_chunks(
     query: str,
-    top_k: int = 5,
-    card_filter: str | None = None,
-    doc_type: str | None = None,
+    top_k: int = DEFAULT_TOP_K, 
+    metadata_filter: Dict[str, Any] | None = None, # ✅ 改成接收一個字典
 ) -> List[Dict[str, Any]]:
     """
-    依照 query 做 embedding，計算與所有 chunk 的 cosine 相似度，回傳前 top_k 筆。
-
-    query: 使用者問題
-    card_filter: 若只想查某張卡，例如 "國泰世華CUBE卡"
-    doc_type: "credit_card_profile" / "benefit_scheme" / "benefit_rule" / "welcome_offer"
+    Args:
+        query: 使用者問題
+        top_k: 回傳筆數
+        metadata_filter: 過濾條件字典，例如 {"card_name": "國泰CUBE卡", "doc_type": "benefit_scheme"}
+                         只要索引中有該欄位，就可以作為過濾條件。
     """
     load_index()
-    q_emb = query_ai_embedding(query)
-    if not q_emb:
+    
+    if _faiss_db is None:
         return []
 
-    def _search(apply_card_filter: bool) -> List[tuple[float, Dict[str, Any]]]:
-        scored: List[tuple[float, Dict[str, Any]]] = []
+    # 1. 處理過濾條件
+    final_filter = {}
+    if metadata_filter:
+        for k, v in metadata_filter.items():
+            if v is not None:
+                if isinstance(v, str):
+                    final_filter[k] = v.strip()
+                else:
+                    final_filter[k] = v
 
-        for ch in _cards_index:
-            # 1) 卡片過濾（可選）
-            if apply_card_filter and card_filter:
-                card = (ch.get("card_name") or "").strip()
-                cf = card_filter.strip()
-                # 如果兩邊都完全沒包含對方，就當作不是這張卡
-                if cf not in card and card not in cf:
-                    continue
+    faiss_filter = final_filter if final_filter else None
 
-            # 2) doc_type 過濾（可選）
-            if doc_type and ch.get("doc_type") != doc_type:
-                continue
-
-            emb = ch.get("embedding")
-            if not emb:
-                continue
-
-            sim = _cosine(q_emb, emb)
-            scored.append((sim, ch))
-
-        return scored
-
-    # 先嘗試有 card_filter 的狀態
-    scored = _search(apply_card_filter=True)
-
-    # 如果有指定 card_filter，但完全沒有命中，就退一步「不套 card_filter 再搜一次」
-    if not scored and card_filter:
-        scored = _search(apply_card_filter=False)
-
-    # 如果依然沒有，就直接回空 list
-    if not scored:
+    # 2. 執行 FAISS 檢索
+    try:
+        results = _faiss_db.similarity_search(
+            query, 
+            k=top_k,
+            filter=faiss_filter # ✅ 直接傳入處理好的字典
+        )
+    except Exception as e:
+        print(f"❌ FAISS 檢索失敗: {e}")
         return []
 
-    scored.sort(key=lambda x: x[0], reverse=True)
-    return [c for _, c in scored[:top_k]]
+    formatted_chunks = []
+    print(results)
+    for i, doc in enumerate(results, 1):
+        meta = doc.metadata
+        content = doc.page_content
+
+        # 1. 提取關鍵欄位 (如果沒有則留空或顯示預設值)
+        card_name = meta.get("card_name", "未知卡片")
+        scheme_name = meta.get("scheme_name")
+        doc_type = meta.get("doc_type", "一般資訊")
+        valid_period = meta.get("valid_period", "未指定")
+        
+        # 2. 處理 title，讓 LLM 一眼知道這段是在講什麼
+        if scheme_name:
+            title = f"{card_name} - {scheme_name} ({doc_type})"
+        else:
+            title = f"{card_name} ({doc_type})"
+
+        # 3. 處理指定通路列表 (channels_flat)
+        # 這對回答「麥當勞有沒有回饋」這類問題至關重要
+        channels_flat = meta.get("channels_flat", [])
+        channels_str = ""
+        if channels_flat and isinstance(channels_flat, list):
+            # 將列表轉為逗號分隔字串，節省 token 但保持語意
+            channels_str = f"\n- **包含通路關鍵字**: {', '.join(channels_flat)}"
+
+        # 4. 組裝單個 Chunk 的文本
+        # 使用 Markdown 格式，讓 LLM 容易區分不同區塊
+        chunk_text = (
+            f"### 資料來源 {i}: {title}\n"
+            f"- **適用期間**: {valid_period}\n"
+            f"- **內容詳情**: {content}"
+            f"{channels_str}"
+        )
+        
+        formatted_chunks.append(chunk_text)
+
+    # 5. 將所有 chunks 用分隔線接起來
+    return "\n\n---\n\n".join(formatted_chunks)
 
 
-def rag_search(query: str, top_k: int = 5) -> List[Dict[str, Any]]:
+
+def rag_search(query: str, top_k: int = DEFAULT_TOP_K) -> List[Dict[str, Any]]:
     """
     簡單封裝：如果不需要卡片/文件類型過濾，就直接用這個。
     """
