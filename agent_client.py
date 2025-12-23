@@ -169,16 +169,21 @@ SYSTEM_PROMPT = """
 1. **demand_agent**: 分析使用者背景 (年齡/職業/收入)。
 2. **comparing_agent**: 推薦卡片。需提供 `user_profile`。
 3. **product_agent**: 查詢單一卡片資訊。
-4. **eligibility_agent: 判斷申辦門檻/資格與缺少資料
+4. **eligibility_agent: 申辦門檻/資格判定（是否能辦、申辦難度、財力證明、學生/新鮮人限制、缺少資料）。
 
 # 標準作業流程 (SOP)
 
-**情境：使用者求推薦 (例如: "我是學生，想辦卡")**
+**情境 A：使用者求推薦 (例如: "我是學生，想辦卡")**
 STEP 1: 呼叫 `demand_agent` 分析背景。
 STEP 2: (收到 demand_agent 回覆後) -> **立刻停止思考背景**，轉而呼叫 `comparing_agent`。
    - 參數 `user_query`: 使用者的原始問題
    - 參數 `user_profile`: 剛剛 `demand_agent` 回傳的 JSON 字串
 STEP 3: (收到 comparing_agent 回覆後) -> 整合資訊，回答使用者。
+## 情境 B：使用者問申辦資格（例如：「我月薪 4 萬能辦 CUBE 嗎？」）
+STEP 1：呼叫 `eligibility_agent`
+  - user_query = 使用者原始問題
+  - 若歷史中已有 demand_agent 的 JSON，則一併填入 user_profile（若沒有就留空）
+STEP 2：整合 eligibility_agent 回覆，回答「能不能辦 / 可能卡點 / 需要補的資料」
 
 **錯誤示範 (絕對禁止)**
 ❌ 使用者說「我是學生」 -> 呼叫 `demand_agent` -> 收到結果 -> 又看到「我是學生」 -> 又呼叫 `demand_agent` (無限迴圈)。
